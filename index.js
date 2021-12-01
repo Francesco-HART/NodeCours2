@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import userRoutes from "./routes/user.route";
 import authRoutes from "./routes/auth.route";
-import {jwtLogin, localLogin} from "./services/auth";
+import { jwtLogin, localLogin } from "./services/auth";
 import passport from "passport";
 
-const {urlencoded, json} = bodyParser;
-const {connect, connection} = mongoose;
+const { urlencoded, json } = bodyParser;
+const { connect, connection } = mongoose;
 
 // app.use(cookies.express({ keys: [process.env.COOKIE_KEY] }));
 
@@ -17,19 +17,19 @@ const port = process.env.PORT || 8000;
 passport.use(jwtLogin);
 passport.use(localLogin);
 
-app.use(urlencoded({extended: false}));
+app.use(urlencoded({ extended: false }));
 app.use(json());
 
 //Routage
-app.use("/api/user",userRoutes);
-app.use("/",authRoutes);
+app.use("/api", userRoutes);
+app.use("/api", authRoutes);
 //Set up default mongoose connection
 var mongoDB =
-    "mongodb+srv://sarah:password_user@cluster0.oofm1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  "mongodb+srv://sarah:password_user@cluster0.oofm1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 connect(mongoDB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    autoIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  autoIndex: true,
 });
 
 //Get the default connection
@@ -40,5 +40,5 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 // Utiliser les routes
 
 app.listen(port, () => {
-    console.log("Server app listening on port " + port);
+  console.log("Server app listening on port " + port);
 });
