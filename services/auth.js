@@ -40,6 +40,8 @@ function signIn(res, req, next) {
         } else {
             const timestamp = new Date().getTime() / 1000;
             const token_infos = email;
+            // ADD TYPE
+            // const token_infos = email;
             const token = jwt.sign(
                 {sub: token_infos, iat: timestamp},
                 jwtKey,
