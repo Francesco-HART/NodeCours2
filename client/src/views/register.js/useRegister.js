@@ -1,22 +1,39 @@
 import { useForm } from "react-hook-form";
-import { VariantType, useSnackbar } from "notistack";
-import { useContext } from "react";
-import { reducer } from "../../services/store/reducer";
+import { useSnackbar } from "notistack";
+import { useContext, useState } from "react";
 import { AuthService } from "../../services/api/auth";
 import { typesUser } from "../../services/store/actionTypes";
-import { initialAuthUser } from "../../services/store/AuthProvider";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../services/store/authContext";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = Yup.object().shape({
+  name: Yup.string(),
+  email: Yup.string().email().required("Champs manquant"),
+  password: Yup.string().required("Champs manquant"),
+  confirm_password: Yup.string()
+    .when("password", (password, field) =>
+      password ? field.required().oneOf([Yup.ref("password")]) : field
+    )
+    .required("Champs manquant"),
+});
 
 const useRegister = () => {
+  const navigate = useNavigate();
+
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const authContext = useContext(AuthContext);
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+  const [isVisibleConfirmPassWord, setIsVisibleConfirmPassword] =
+    useState(false);
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
 
   const fields = [
     {
@@ -31,18 +48,41 @@ const useRegister = () => {
     },
   ];
 
+  const toggleIsVisiblePassword = () => {
+    setIsVisiblePassword(!isVisiblePassword);
+  };
+
+  const toggleIsVisibleConfirmPassword = () => {
+    setIsVisibleConfirmPassword(!isVisibleConfirmPassWord);
+  };
+
   const onSubmit = (data) => {
     AuthService.login(data)
       .then((res) => {
         authContext.setAuthUser(typesUser.LOGIN, res);
+        if (authContext.authUser.isLoggedIn) {
+          enqueueSnackbar("Bienvenue !", { variant: "success" });
+          navigate("/");
+        }
       })
       .catch((err) => {
-        enqueueSnackbar(err);
+        enqueueSnackbar(err, { variant: "error" });
+        navigate("/");
       });
   };
 
   const submit = handleSubmit(onSubmit);
 
-  return { submit, fields, register, errors };
+  return {
+    submit,
+    fields,
+    register,
+    errors,
+    schema,
+    toggleIsVisiblePassword,
+    toggleIsVisibleConfirmPassword,
+    isVisibleConfirmPassWord,
+    isVisiblePassword,
+  };
 };
 export default useRegister;

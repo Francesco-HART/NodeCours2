@@ -5,9 +5,12 @@ import {
   TextField,
   Button,
   CardActionArea,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import useRegister from "./useRegister";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EmailIcon from "@mui/icons-material/Email";
 const Register = () => {
   const blocRegister = useRegister();
 
@@ -26,73 +29,73 @@ const Register = () => {
               >
                 {blocRegister.fields.map((elem, index) => {
                   return (
-                    <Grid item key={index}>
+                    <Grid item key={index} xs={8}>
                       <TextField
                         {...blocRegister.register(elem.name)}
                         label={elem.label}
-                        //   helperText={blocRegister.errors[elem.name]?.message}
-                        //   error={blocRegister.errors[elem.name] ? true : false}
-                        //   //   InputProps={{
-                        //   //     endAdornment: (
-                        //   //       <InputAdornment position="start">
-                        //   //         <AccountBoxIcon></AccountBoxIcon>
-                        //   //       </InputAdornment>
-                        //   //     ),
-                        //   //   }}
+                        type={elem.type}
+                        helperText={blocRegister.errors[elem.name]?.message}
+                        error={blocRegister.errors[elem.name] ? true : false}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="start"></InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
                   );
                 })}
-                <Grid item>
-                  <TextField
-                    {...blocRegister.register("password")}
-                    label={"Password"}
-                    //   helperText={blocRegister.errors[elem.name]?.message}
-                    //   error={blocRegister.errors[elem.name] ? true : false}
-                    //   //   InputProps={{
-                    //   //     endAdornment: (
-                    //   //       <InputAdornment position="start">
-                    //   //         <AccountBoxIcon></AccountBoxIcon>
-                    //   //       </InputAdornment>
-                    //   //     ),
-                    //   //   }}
-                  />
-                </Grid>
-                <Grid item>
+                <Grid item xs={8}>
                   <TextField
                     {...blocRegister.register("password")}
                     label={"Mot de passe"}
-                    //   helperText={blocRegister.errors[elem.name]?.message}
-                    //   error={blocRegister.errors[elem.name] ? true : false}
-                    //   //   InputProps={{
-                    //   //     endAdornment: (
-                    //   //       <InputAdornment position="start">
-                    //   //         <AccountBoxIcon></AccountBoxIcon>
-                    //   //       </InputAdornment>
-                    //   //     ),
-                    //   //   }}
+                    type={
+                      blocRegister.isVisiblePassword ? "string" : "password"
+                    }
+                    helperText={blocRegister.errors["password"]?.message}
+                    error={blocRegister.errors["password"] ? true : false}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton
+                          position="end"
+                          onClick={blocRegister.toggleIsVisiblePassword}
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                      ),
+                    }}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={8}>
                   <TextField
                     {...blocRegister.register("confirm_password")}
                     label={"Confimer le mot de passe"}
-                    //   helperText={blocRegister.errors[elem.name]?.message}
-                    //   error={blocRegister.errors[elem.name] ? true : false}
-                    //   //   InputProps={{
-                    //   //     endAdornment: (
-                    //   //       <InputAdornment position="start">
-                    //   //         <AccountBoxIcon></AccountBoxIcon>
-                    //   //       </InputAdornment>
-                    //   //     ),
-                    //   //   }}
+                    helperText={
+                      blocRegister.errors["confirm_password"]?.message
+                    }
+                    type={
+                      blocRegister.isVisibleConfirmPassWord
+                        ? "string"
+                        : "password"
+                    }
+                    error={
+                      blocRegister.errors["confirm_password"] ? true : false
+                    }
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton
+                          position="end"
+                          onClick={blocRegister.toggleIsVisibleConfirmPassword}
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                      ),
+                    }}
                   />
                 </Grid>
               </Grid>
             </CardContent>
-            <CardActionArea>
-              <Button type="submit">Valider</Button>
-            </CardActionArea>
+            <Button type="submit">Valider</Button>
           </Card>
         </Grid>
       </form>
