@@ -20,4 +20,3 @@ export {
     User,
     schema
 }
-// export default {validateUser, mongoose.model("user", UserModel)r}

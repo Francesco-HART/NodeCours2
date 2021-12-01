@@ -5,7 +5,6 @@ import bcrypt from "bcrypt";
 import Cookies from "cookies";
 import jwt from 'jsonwebtoken';
 import passportJwt from "passport-jwt"
-import cookieParser from "cookie-parser";
 
 const cookieKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJ1c2VybmFtZSI6IkFub255bWUiLCJyb2xlIjoiVXNlciJ9._qpO3Uagw4kt8SbDWBy2AC7sF8H_dqF6r8I9eqK7Dtc";
 const jwtKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJ1c2VybmFtZSI6IkFub255bWUiLCJyb2xlIjoiVXNlciJ9._qpO3Uagw4kt8SbDWBy2AC7sF8H_dqF6r8I9eqK7Dtc";
@@ -60,9 +59,8 @@ const signIn = (req, res, next) => {
 }
 
 const cookieExtractor = function (req) {
-    console.log("JHEREEEE")
     let token = null;
-
+    //TODO: look for cookie extractor
     const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYXJhYWh5dEBnbWFpbC5jb20iLCJpYXQiOjE2MzgzNjg0NjguMzEzLCJleHAiOjE2Mzg0MTE2Njh9.ENVEm3lxmOOCOfYVMdWLKdUoCmL-UA7S_GmZbup2H2k"
     if (req && req.headers.cookie && jwt)
         token = jwt;
@@ -80,9 +78,7 @@ const jwtOptions = {
 };
 
 const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
-    console.log(payload, "ici")
     if (payload.sub) {
-        console.log("in if")
         done(null, payload.sub)
     }
     else {

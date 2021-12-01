@@ -1,6 +1,4 @@
 import {Room, schema} from "../entities/room";
-import {Message} from "../entities/message";
-
 
 export function create(req, res) {
     const { error } = schema.validate(req.body);

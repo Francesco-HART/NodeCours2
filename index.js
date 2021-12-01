@@ -12,7 +12,6 @@ import cookies from "cookies";
 const { urlencoded, json } = bodyParser;
 const { connect, connection } = mongoose;
 
-// app.use(cookies.express({ keys: [process.env.COOKIE_KEY] }));
 
 const app = express();
 const port = process.env.PORT || 8000;

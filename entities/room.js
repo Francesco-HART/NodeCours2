@@ -9,7 +9,6 @@ const RoomModel = mongoose.Schema({
 
 const schema = Joi.object({
     name: Joi.string().min(3).max(50).required(),
-    // _chat: Joi.string().required(),
 });
 
 const Room = mongoose.model("Room", RoomModel, "rooms")

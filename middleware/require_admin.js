@@ -1,6 +1,4 @@
  const requireAdmin = (req, res, next) => {
-    // look the type
-     console.log("req ", req)
     if (req.user === "membre")
         return res
             .status(403)

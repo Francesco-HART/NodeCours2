@@ -1,4 +1,3 @@
-// import User from "../entities/user"
 import bcrypt from "bcrypt";
 import {User, schema} from "../entities/user";
 
