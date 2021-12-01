@@ -8,12 +8,12 @@ export function create(req, res) {
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
-    let name = req.body.name;
+    let name = "";
     let password = req.body.password;
     let email = req.body.email;
     let userRole = "member";
 
-    if (name !== null || password !== null || email !== null) {
+    if (password !== null || email !== null) {
         const hash = bcrypt.hashSync(password, 10);
         const user = new User({name: name, email: email, password: hash, userRole: userRole})
 
