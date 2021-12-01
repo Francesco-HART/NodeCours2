@@ -15,7 +15,14 @@ export const AuthService = {
     }),
   login: (data) =>
     api.post("/login", {
-      login: data.login,
+      email: data.email,
+      password: data.password,
+    }),
+
+  register: (data) =>
+    api.post("/user", {
+      email: data.email,
+      name: data.name,
       password: data.password,
     }),
 

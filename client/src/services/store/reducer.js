@@ -22,7 +22,7 @@ export const reducer = (state, action) => {
         login: action.authUser?.login,
         type: action.authUser?.type,
         permissions: action.authUser?.permissions,
-        group: action.authUser?.group,
+        id: action.authUser?.id,
       };
     default:
       throw new Error();

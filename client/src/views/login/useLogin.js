@@ -9,24 +9,16 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = Yup.object().shape({
-  name: Yup.string(),
   email: Yup.string().email().required("Champs manquant"),
   password: Yup.string().required("Champs manquant"),
-  confirm_password: Yup.string()
-    .when("password", (password, field) =>
-      password ? field.required().oneOf([Yup.ref("password")]) : field
-    )
-    .required("Champs manquant"),
 });
 
-const useRegister = () => {
+const useLogin = () => {
   const navigate = useNavigate();
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const authContext = useContext(AuthContext);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
-  const [isVisibleConfirmPassWord, setIsVisibleConfirmPassword] =
-    useState(false);
 
   const {
     register,
@@ -35,29 +27,12 @@ const useRegister = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const fields = [
-    {
-      name: "email",
-      label: "Email",
-      type: "string",
-    },
-    {
-      name: "name",
-      label: "Nom",
-      type: "string",
-    },
-  ];
-
   const toggleIsVisiblePassword = () => {
     setIsVisiblePassword(!isVisiblePassword);
   };
 
-  const toggleIsVisibleConfirmPassword = () => {
-    setIsVisibleConfirmPassword(!isVisibleConfirmPassWord);
-  };
-
   const onSubmit = (data) => {
-    AuthService.register(data)
+    AuthService.login(data)
       .then((res) => {
         authContext.setAuthUser(typesUser.LOGIN, res);
         if (authContext.authUser.isLoggedIn) {
@@ -74,14 +49,11 @@ const useRegister = () => {
 
   return {
     submit,
-    fields,
     register,
     errors,
     schema,
     toggleIsVisiblePassword,
-    toggleIsVisibleConfirmPassword,
-    isVisibleConfirmPassWord,
     isVisiblePassword,
   };
 };
-export default useRegister;
+export default useLogin;
