@@ -10,10 +10,11 @@ export function create(req, res) {
     let name = req.body.name;
     let password = req.body.password;
     let email = req.body.email;
+    let userRole = "member";
 
     if (name !== null || password !== null || email !== null) {
         const hash = bcrypt.hashSync(password, 10);
-        const user = new User({name: name, email: email, password: hash})
+        const user = new User({name: name, email: email, password: hash, userRole: userRole})
 
         user.save()
             .then((user) => {
@@ -70,6 +71,3 @@ export function deleteUser(req, res) {
             return res.status(400).json("Cannot delete user")
         });
 }
-
-
-

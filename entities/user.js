@@ -5,6 +5,7 @@ const UserModel = mongoose.Schema({
     name: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
+    userRole: {type: String, required: true},
 });
 
 
@@ -20,3 +21,7 @@ export {
     User,
     schema
 }
+<<<<<<< HEAD
+=======
+// export default {validateUser, mongoose.model("user", UserModel)r}
+>>>>>>> f86ace3 (Update Create user)
