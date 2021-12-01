@@ -13,6 +13,7 @@ const JwtStrategy = passportJwt.Strategy;
 const ExtractJwt = passportJwt.ExtractJwt;
 
 const LocalStrategy = passportLocal.Strategy;
+
 const localLogin = new LocalStrategy(
     {usernameField: "email"}, async (email, password, done) => {
         const user = await User.findOne({email: email});
@@ -31,15 +32,15 @@ const localLogin = new LocalStrategy(
     }
 )
 
-function signIn(res, req, next) {
+const signIn = (req, res, next) => {
     passport.authenticate("local", {session: false}, (err, email, infos) => {
         if (err) {
-            return res.status(500).json("impossible de se connecter");
+            return res.status(500).json(infos);
         } else if (!email) {
-            return res.status(500).json("impossible de se connecter");
+            return res.status(500).json(infos);
         } else {
             const timestamp = new Date().getTime() / 1000;
-            const token_infos = email;
+            const token_infos = {email};
             // ADD TYPE
             // const token_infos = email;
             const token = jwt.sign(
@@ -59,8 +60,12 @@ function signIn(res, req, next) {
 
 const cookieExtractor = function (req) {
     let token = null;
-    if (req && req.cookies && req.cookies.get("jwt"))
-        token = req.cookies.get("jwt");
+    //TODO: look for cookie extractor
+    const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYXJhYWh5dEBnbWFpbC5jb20iLCJpYXQiOjE2MzgzNjg0NjguMzEzLCJleHAiOjE2Mzg0MTE2Njh9.ENVEm3lxmOOCOfYVMdWLKdUoCmL-UA7S_GmZbup2H2k"
+    if (req && req.headers.cookie && jwt)
+        token = jwt;
+
+    console.log('TOKEN = ', token)
     return token;
 };
 
@@ -73,7 +78,9 @@ const jwtOptions = {
 };
 
 const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
-    if (payload.sub) done(null, payload.sub);
+    if (payload.sub) {
+        done(null, payload.sub)
+    }
     else {
         done(null, false);
     }
