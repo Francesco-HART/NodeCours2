@@ -16,7 +16,6 @@ import useChat from "./useChat";
 import { Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -46,6 +45,8 @@ const Chat = () => {
 
   // La room doit contenir les mx dernier message
   useEffect(() => {
+    blocChat.socket.event();
+    blocChat.socket.emit();
     blocChat.setName(blocChat.authUser.name);
     blocChat.getRooms();
     if (id) blocChat.getRoomById(id);

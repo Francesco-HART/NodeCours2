@@ -62,7 +62,8 @@ function AuthProvider({ children }) {
       <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
     );
   } catch (err) {
-    console.log("error reducer :", err);
+    console.log("error reducer :", err.message);
+    console.log(err);
     return <div></div>;
   }
 }

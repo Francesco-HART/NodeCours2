@@ -33,7 +33,7 @@ const useLogin = () => {
   const onSubmit = (data) => {
     AuthService.login(data)
       .then(async (user) => {
-        await authContext?.setAuthUser(typesUser.LOGIN, user);
+        await authContext.setAuthUser(typesUser.LOGIN, user);
         if (
           authContext &&
           authContext.authUser &&

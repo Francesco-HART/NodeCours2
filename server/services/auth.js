@@ -62,7 +62,7 @@ const signIn = (req, res, next) => {
 
 const cookieExtractor = function (req) {
   let token = null;
-  const jwt = req.headers.cookie.split('jwt=').pop().split(';')[0]; // returns 'two'
+  const jwt = req.headers.cookie.split("jwt=").pop().split(";")[0]; // returns 'two'
   if (req && req.headers.cookie && jwt) {
     token = jwt;
   }

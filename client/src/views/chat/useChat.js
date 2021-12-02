@@ -4,8 +4,10 @@ import { useSnackbar } from "notistack";
 import { AuthContext } from "../../services/store/authContext";
 import { UserService } from "../../services/api/user";
 import { typesUser } from "../../services/store/actionTypes";
+import webSocket from "../../services/socket/socket";
 
 const useChat = () => {
+  const socket = webSocket();
   const authContext = useContext(AuthContext);
 
   const [rooms, setRooms] = useState([]);
@@ -90,6 +92,7 @@ const useChat = () => {
   return {
     rooms,
     room,
+    socket,
     setName,
     message,
     setMessage: setMsg,

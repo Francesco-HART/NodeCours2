@@ -1,41 +1,37 @@
-import { Manager } from "socket.io-client";
+import * as io from "socket.io-client";
+const { Manager } = require("socket.io-client");
 
 const webSocket = () => {
   try {
-    const manager = new Manager("ws://localhost:8000", {
+    const manager = new Manager("ws://localhost:5000", {
       reconnectionDelayMax: 10000,
-      query: {
-        "my-key": "my-value",
-      },
+      reconnection: false,
+      transports: ["websocket", "polling"],
     });
 
-    const createRoom = (token) => {
-      const socket = manager.socket("/room", {
-        auth: {
-          token: token,
-        },
-      });
+    const socket = manager.socket("/", {
+      transports: ["websocket", "polling"],
+    });
 
-      return socket;
+    //socket join
+    console.log(socket);
+
+    const event = () => {
+      socket.on("hello", (arg) => {
+        console.log(arg, "iciiiiiiiiiiiiiiiiiiiiii"); // world
+      });
     };
 
-    // socket.on("connect", () => {
-    //     console.log(socket.id); // "G5p5..."
-    //   });
+    console.log(socket);
 
-    // const getSocketEvent = (socket) => {
-    //     socket.on("message", (...args) => {
-
-    //       });
-    //}
-
-    const leaveRoom = (socket) => {
-      socket.disconnect();
+    const emit = () => {
+      console.log("iciiiiiiiiiiiiiii");
+      socket.emit("hello", "world");
     };
 
     return {
-      createRoom,
-      leaveRoom,
+      event,
+      emit,
     };
   } catch (err) {
     throw err;
