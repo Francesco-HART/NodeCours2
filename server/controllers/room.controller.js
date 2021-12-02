@@ -27,6 +27,17 @@ export function create(req, res) {
     }
 }
 
+export function getAllRoom(req, res){
+    Room.find()
+        .populate('messages')
+        .then((room) =>{
+            res.status(200).json(room)
+        })
+        .catch((err) =>{
+            res.status(400).json(err)
+        } )
+}
+
 export function getRoom(req, res){
     Room.findOne({_id: req.params.id})
         .populate('messages')
