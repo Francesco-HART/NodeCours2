@@ -12,7 +12,7 @@ const MessageModel = mongoose.Schema(
 );
 
 const schema = Joi.object({
-    message: Joi.string().min(3).max(250).required(),
+    message: Joi.string().min(1).max(250).required(),
     _roomId: Joi.string().min(3).max(250).required(),
 });
 
