@@ -15,4 +15,5 @@ router.get("/user/:id", require_admin, getUser);
 router.put("/user/:id", updateUser);
 router.delete("/user/:id", require_admin, deleteUser);
 router.get("/currentuser",require_auth,currentUser)
+
 export default router;
