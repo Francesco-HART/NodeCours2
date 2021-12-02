@@ -11,11 +11,11 @@ function Router() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="login" element={/*Page Login*/ <Users />}></Route>
+        <Route path="login" element={/*Page Login*/ <Login />}></Route>
         <Route path="register" element={/*Page Login*/ <Register />}></Route>
 
         <Route
-          path="/"
+          path="/:id"
           element={<RequireAuth component={/*Page Dashboard*/ <Chat />} />}
         />
         <Route
