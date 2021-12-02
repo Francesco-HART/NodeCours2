@@ -48,6 +48,7 @@ const useRegister = () => {
   };
 
   const onSubmit = (data) => {
+    console.log(data);
     AuthService.register(data)
       .then((res) => {
         enqueueSnackbar("Bienvenue !", { variant: "success" });
