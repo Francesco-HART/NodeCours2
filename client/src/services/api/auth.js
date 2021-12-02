@@ -8,6 +8,7 @@ export const AuthService = {
         isLoggedIn: true,
         email: data.email,
         type: data.type,
+        name: data.name,
         id: data._id,
       };
       return authUser;
@@ -22,8 +23,8 @@ export const AuthService = {
   register: (data) =>
     api.post("/register", {
       email: data.email,
-      name: data.name,
       password: data.password,
+      confirm_password: data.confirm_password,
     }),
 
   logout: (data) => api.get("/logout"),

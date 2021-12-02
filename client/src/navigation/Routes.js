@@ -13,9 +13,12 @@ function Router() {
       <Routes>
         <Route path="/login" element={/*Page Login*/ <Login />}></Route>
         <Route path="/register" element={/*Page Login*/ <Register />}></Route>
-
         <Route
           path="/"
+          element={<RequireAuth component={/*Page Dashboard*/ <Chat />} />}
+        />
+        <Route
+          path="/room/:id"
           element={<RequireAuth component={/*Page Dashboard*/ <Chat />} />}
         />
         <Route

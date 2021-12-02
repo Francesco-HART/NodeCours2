@@ -54,7 +54,6 @@ const useRegister = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
         enqueueSnackbar("Email deja utilisé", { variant: "error" });
       });
   };

@@ -44,10 +44,11 @@ export function create(req, res) {
 }
 
 export function register(req, res) {
-  const { error } = schema.validate(req.body);
-  if (error) {
-    return res.status(400).send(error.details[0].message);
-  }
+  // const { error } = schema.validate(req.body);
+  // if (error) {
+  //   return res.status(400).send(error.details[0].message);
+  // }
+
   let confirm_password = req.body.confirm_password;
   let name = "";
   let password = req.body.password;
@@ -102,13 +103,14 @@ export function updateUser(req, res) {
     name: name,
     email: email,
   };
+
   User.findByIdAndUpdate({ _id: req.params.id }, data, { new: true })
     .select("-password")
     .then((result) => {
-      console.log(result);
       return res.status(200).json(result);
     })
     .catch((err) => {
+      console.log(err);
       return res.status(400).json("Cannot update user");
     });
 }
@@ -117,7 +119,6 @@ export function deleteUser(req, res) {
   User.findOneAndDelete({ _id: req.params.id })
     .select("-password")
     .then((result) => {
-      console.log("result = ", result);
       return res.status(200).json(result);
     })
     .catch((err) => {

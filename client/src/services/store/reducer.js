@@ -21,8 +21,20 @@ export const reducer = (state, action) => {
         isLoggedIn: action.authUser.isLoggedIn,
         email: action.authUser?.email,
         type: action.authUser?.type,
+        name: action.authUser?.name,
         id: action.authUser?.id,
       };
+
+    case "UPDATE":
+      return {
+        fetching: action.authUser.fetching,
+        isLoggedIn: action.authUser.isLoggedIn,
+        email: action.authUser?.email,
+        type: action.authUser?.type,
+        name: action.authUser?.name,
+        id: action.authUser?.id,
+      };
+
     default:
       throw new Error();
   }

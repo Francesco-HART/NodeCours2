@@ -42,6 +42,7 @@ export function useProvideAuth() {
         });
       }
     }
+
     getCurrentUser();
   }, []);
 
@@ -54,7 +55,6 @@ export function useProvideAuth() {
 function AuthProvider({ children }) {
   try {
     const authValue = useProvideAuth();
-
     // TODO : improve the loading
     if (authValue.authUser.fetching) return null;
 
@@ -63,6 +63,7 @@ function AuthProvider({ children }) {
     );
   } catch (err) {
     console.log("error reducer :", err);
+    return <div></div>;
   }
 }
 
