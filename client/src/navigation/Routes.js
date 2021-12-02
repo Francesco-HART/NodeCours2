@@ -11,8 +11,8 @@ function Router() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="login" element={/*Page Login*/ <Login />}></Route>
-        <Route path="register" element={/*Page Login*/ <Register />}></Route>
+        <Route path="/login" element={/*Page Login*/ <Login />}></Route>
+        <Route path="/register" element={/*Page Login*/ <Register />}></Route>
 
         <Route
           path="/"

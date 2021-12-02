@@ -1,13 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RoomService } from "../../services/api/rooms";
 import { useSnackbar } from "notistack";
-import { AuthContext } from "../../services/store/authContext";
 
 const useChat = () => {
   const [rooms, setRooms] = useState([{ name: "roomTest" }]);
   const [room, setRoom] = useState({
     name: "roomTest",
-    messages: [{ userId: "1", message: "Bonjour Tom", date: Date.now }],
+    messages: [{ userId: "1", message: "Bonjour Tom", createdAt: Date.now }],
   });
   const [isNameUpdating, setIsNameUpdating] = useState(false);
 
@@ -24,7 +23,6 @@ const useChat = () => {
   };
 
   const { enqueueSnackbar } = useSnackbar();
-  const authContext = useContext(AuthContext);
   // La room doit contenir les mx dernier message
   useEffect(() => {
     const currentURL = window.location.pathname;

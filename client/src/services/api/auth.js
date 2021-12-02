@@ -6,10 +6,9 @@ export const AuthService = {
       const authUser = {
         fetching: false,
         isLoggedIn: true,
-        login: data.login,
+        email: data.email,
         type: data.type,
-        permissions: data.role?.permissions,
-        group: data.group,
+        id: data._id,
       };
       return authUser;
     }),

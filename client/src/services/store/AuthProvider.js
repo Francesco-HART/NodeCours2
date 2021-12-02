@@ -19,7 +19,6 @@ export function useProvideAuth() {
     async function getCurrentUser() {
       try {
         const currentAuthUser = await AuthService.getAuthUser();
-        console.log(currentAuthUser);
         if (currentAuthUser)
           setAuthUser({
             type: typesUser.LOGIN,
@@ -53,14 +52,18 @@ export function useProvideAuth() {
 }
 
 function AuthProvider({ children }) {
-  const authValue = useProvideAuth();
+  try {
+    const authValue = useProvideAuth();
 
-  // TODO : improve the loading
-  if (authValue.authUser.fetching) return null;
+    // TODO : improve the loading
+    if (authValue.authUser.fetching) return null;
 
-  return (
-    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
-  );
+    return (
+      <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
+    );
+  } catch (err) {
+    console.log("error reducer :", err);
+  }
 }
 
 export { AuthProvider };

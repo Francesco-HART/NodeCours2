@@ -21,7 +21,7 @@ app.use(passport.initialize());
 passport.use(jwtLogin);
 passport.use(localLogin);
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 app.use(urlencoded({ extended: false }));
 app.use(json());
 

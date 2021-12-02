@@ -8,8 +8,13 @@ export function create(req, res) {
   }
   let name = "";
   let password = req.body.password;
+  let confirm_password = req.body.confirm_password;
+
   let email = req.body.email;
   let userRole = "member";
+
+  if (password !== confirm_password)
+    return res.status(400).send("Mot de passe et sa confirmation incorrect");
 
   if (password !== null || email !== null) {
     const hash = bcrypt.hashSync(password, 10);
@@ -43,11 +48,14 @@ export function register(req, res) {
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
-  console.log("je suis bien iciiiiiiii");
+  let confirm_password = req.body.confirm_password;
   let name = "";
   let password = req.body.password;
   let email = req.body.email;
   let userRole = "member";
+
+  if (password !== confirm_password)
+    return res.status(400).send("Mot de passe et sa confirmation incorrect");
 
   if (password !== null || email !== null) {
     const hash = bcrypt.hashSync(password, 10);

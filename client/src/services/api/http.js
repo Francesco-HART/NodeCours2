@@ -5,7 +5,11 @@ const API_HOST = process.env.API_HOST ? process.env.API_HOST : "localhost";
 
 const instance = axios.create({
   baseURL: `http://${API_HOST}:${API_HTTP_PORT}/api`,
-  headers: { "Content-type": "application/json" },
+  headers: {
+    "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
+
   withCredentials: true,
 });
 

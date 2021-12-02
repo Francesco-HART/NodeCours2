@@ -16,14 +16,13 @@ const schema = Yup.object().shape({
 const useLogin = () => {
   const navigate = useNavigate();
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const authContext = useContext(AuthContext);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
@@ -33,15 +32,21 @@ const useLogin = () => {
 
   const onSubmit = (data) => {
     AuthService.login(data)
-      .then((res) => {
-        authContext.setAuthUser(typesUser.LOGIN, res);
-        if (authContext.authUser.isLoggedIn) {
+      .then(async (user) => {
+        await authContext?.setAuthUser(typesUser.LOGIN, user);
+        if (
+          authContext &&
+          authContext.authUser &&
+          authContext.authUser.isLoggedIn
+        ) {
           enqueueSnackbar("Bienvenue !", { variant: "success" });
           navigate("/");
         }
       })
       .catch((err) => {
-        enqueueSnackbar(err, { variant: "error" });
+        enqueueSnackbar("Email ou Mot De Passe incorrect", {
+          variant: "error",
+        });
       });
   };
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { get } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { UserService } from "../../services/api/user";
 const useUsers = () => {

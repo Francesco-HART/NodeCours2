@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -14,10 +13,9 @@ import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@mui/icons-material/Send";
 import useChat from "./useChat";
-import { RoomService } from "../../services/api/rooms";
 import { NavLink } from "react-router-dom";
 import date from "date-and-time";
-import { Button, ListItemButton } from "@mui/material";
+import { Button } from "@mui/material";
 
 const useStyles = makeStyles({
   table: {
@@ -114,7 +112,7 @@ const Chat = () => {
             {blocChat.rooms.map((room, index) => {
               return (
                 <NavLink key={index} to="/">
-                  <ListItem buttonlin>
+                  <ListItem>
                     <ListItemIcon>
                       <Avatar
                         alt={room.name}
@@ -181,9 +179,9 @@ const Chat = () => {
                             ? "right"
                             : "left"
                         }
-                        secondary={
-                          date.format(new Date(), pattern) // => Mar 16 2020 6:24:56 PM
-                        }
+                        // secondary={
+                        //   date.format(Date.now, pattern) // => Mar 16 2020 6:24:56 PM
+                        // }
                       ></ListItemText>
                     </Grid>
                   </Grid>
@@ -241,7 +239,7 @@ const Chat = () => {
                 fullWidth
               />
             </Grid>
-            <Grid xs={1} align="right">
+            <Grid item xs={1} align="right">
               <Fab color="primary" aria-label="add">
                 <SendIcon />
               </Fab>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -32,12 +31,7 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Connexion
         </Typography>
-        <Box
-          component="form"
-          onSubmit={() => blocLogin.submit()}
-          noValidate
-          sx={{ mt: 1 }}
-        >
+        <form component="form" onSubmit={blocLogin.submit} sx={{ mt: 1 }}>
           <TextField
             {...blocLogin.register("email")}
             margin="normal"
@@ -54,14 +48,14 @@ export default function Login() {
           />
 
           <TextField
+            {...blocLogin.register("password")}
             margin="normal"
             required
             fullWidth
             name="password"
             label="Mot De Passe"
-            type="password"
             id="password"
-            autoComplete="current-password"
+            autoComplete="password"
             type={blocLogin.isVisiblePassword ? "string" : "password"}
             helperText={blocLogin.errors["password"]?.message}
             error={blocLogin.errors["password"] ? true : false}
@@ -90,7 +84,7 @@ export default function Login() {
               {"S'enregistrer"}
             </Link>
           </Grid>
-        </Box>
+        </form>
       </Box>
     </Container>
   );

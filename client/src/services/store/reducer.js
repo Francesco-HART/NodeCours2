@@ -19,9 +19,8 @@ export const reducer = (state, action) => {
       return {
         fetching: action.authUser.fetching,
         isLoggedIn: action.authUser.isLoggedIn,
-        login: action.authUser?.login,
+        email: action.authUser?.email,
         type: action.authUser?.type,
-        permissions: action.authUser?.permissions,
         id: action.authUser?.id,
       };
     default:

@@ -5,7 +5,6 @@ import {
   CssBaseline,
   Grid,
   IconButton,
-  Paper,
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";

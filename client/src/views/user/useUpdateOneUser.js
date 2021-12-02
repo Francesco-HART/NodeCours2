@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { useContext, useState } from "react";
-import { AuthService } from "../../services/api/auth";
 import { typesUser } from "../../services/store/actionTypes";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../services/store/authContext";
@@ -23,7 +22,7 @@ const schema = Yup.object().shape({
 const useUpdateOneUser = () => {
   const navigate = useNavigate();
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const authContext = useContext(AuthContext);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [isVisibleConfirmPassWord, setIsVisibleConfirmPassword] =
@@ -32,7 +31,6 @@ const useUpdateOneUser = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
@@ -71,22 +69,22 @@ const useUpdateOneUser = () => {
       });
   };
 
-  const onSubmitUpdateInfosUser = (data) => {
-    UserService.updatePassword(data)
-      .then((res) => {
-        authContext.setAuthUser(typesUser.LOGIN, res);
-        if (authContext.authUser.isLoggedIn) {
-          enqueueSnackbar("Bienvenue !", { variant: "success" });
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        enqueueSnackbar(err, { variant: "error" });
-      });
-  };
+  // const onSubmitUpdateInfosUser = (data) => {
+  //   UserService.updatePassword(data)
+  //     .then((res) => {
+  //       authContext.setAuthUser(typesUser.LOGIN, res);
+  //       if (authContext.authUser.isLoggedIn) {
+  //         enqueueSnackbar("Bienvenue !", { variant: "success" });
+  //         navigate("/");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       enqueueSnackbar(err, { variant: "error" });
+  //     });
+  // };
 
   const submitPassword = handleSubmit(onSubmitUpdatePassword);
-  const submitInfo = handleSubmit(onSubmitUpdateInfosUser);
+  // const submitInfo = handleSubmit(onSubmitUpdateInfosUser);
 
   return {
     submitPassword,
