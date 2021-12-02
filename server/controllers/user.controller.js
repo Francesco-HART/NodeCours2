@@ -106,7 +106,6 @@ export function updateUser(req, res) {
   User.findByIdAndUpdate({ _id: req.params.id }, data, { new: true })
     .select("-password")
     .then((result) => {
-      console.log(result);
       return res.status(200).json(result);
     })
     .catch((err) => {
@@ -119,7 +118,6 @@ export function deleteUser(req, res) {
   User.findOneAndDelete({ _id: req.params.id })
     .select("-password")
     .then((result) => {
-      console.log("result = ", result);
       return res.status(200).json(result);
     })
     .catch((err) => {

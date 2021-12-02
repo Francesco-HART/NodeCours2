@@ -57,7 +57,6 @@ const useChat = () => {
   }
 
   async function getRoomById(id) {
-    console.log(id, "iciiiiiiiiiiiiiiiiiiiii");
     const getRoom = await RoomService.getOneById(id);
     setRoom(getRoom);
     setIsMessageLoading(false);
