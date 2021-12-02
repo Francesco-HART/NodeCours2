@@ -71,3 +71,9 @@ export function deleteUser(req, res) {
             return res.status(400).json("Cannot delete user")
         });
 }
+
+export function currentUser(req, res) {
+
+    return res.status(200).json(req.user);
+
+}
