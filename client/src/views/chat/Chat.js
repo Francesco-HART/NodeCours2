@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -13,9 +13,9 @@ import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@mui/icons-material/Send";
 import useChat from "./useChat";
-import { NavLink } from "react-router-dom";
-import date from "date-and-time";
 import { Button } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   table: {
@@ -38,10 +38,26 @@ const useStyles = makeStyles({
 });
 
 const Chat = () => {
-  const pattern = date.compile("MMM D YYYY h:m:s A");
+  let navigate = useNavigate();
 
+  let { id } = useParams();
   const classes = useStyles();
   const blocChat = useChat();
+
+  // La room doit contenir les mx dernier message
+  useEffect(() => {
+    blocChat.setName(blocChat.authUser.name);
+    blocChat.getRooms();
+    if (id) blocChat.getRoomById(id);
+    else blocChat.getDefaultRoom();
+  }, [id]);
+
+  if (blocChat.isMessageLoading) return <div></div>;
+
+  function handlePushRoom(id) {
+    navigate("/room/" + id, { replace: true });
+  }
+
   return (
     <div>
       <Grid container>
@@ -54,7 +70,7 @@ const Chat = () => {
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={3} className={classes.borderRight500}>
           <List>
-            <ListItem key={blocChat.authLogin}>
+            <ListItem key={blocChat.authUser.name}>
               {/*===============================================uSER lOGGED=========================================================*/}
               <ListItemIcon>
                 <Avatar
@@ -63,12 +79,14 @@ const Chat = () => {
                 />
               </ListItemIcon>
               <TextField
+                fullWidth
+                onChange={blocChat.onchangeName}
                 margin="normal"
                 fullWidth
                 id="name"
                 label="Nom"
-                defaultValue="laaa"
                 name="name"
+                value={blocChat.name ? blocChat.name : "  "}
                 autoComplete="name"
                 autoFocus
                 disabled={blocChat.isNameUpdating ? false : true}
@@ -109,10 +127,10 @@ const Chat = () => {
 
           {/*===================================================Room section=====================================================*/}
           <List>
-            {blocChat.rooms.map((room, index) => {
-              return (
-                <NavLink key={index} to="/">
-                  <ListItem>
+            {!blocChat.isRoomsCharging &&
+              blocChat.rooms.map((room, index) => {
+                return (
+                  <ListItem key={index}>
                     <ListItemIcon>
                       <Avatar
                         alt={room.name}
@@ -124,30 +142,12 @@ const Chat = () => {
                       secondary="Ouverte"
                       align="right"
                     ></ListItemText>
+                    <Button onClick={() => handlePushRoom(room._id)}>
+                      Rejoindre
+                    </Button>
                   </ListItem>
-                </NavLink>
-              );
-            })}
-            <ListItem button key="RemySharp">
-              <ListItemIcon>
-                <Avatar
-                  alt="Remy Sharp"
-                  src="https://material-ui.com/static/images/avatar/1.jpg"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Room1">Room1</ListItemText>
-              <ListItemText secondary="Ouverte" align="right"></ListItemText>
-            </ListItem>
-            <ListItem button key="Alice">
-              <ListItemIcon>
-                <Avatar
-                  alt="Alice"
-                  src="https://material-ui.com/static/images/avatar/3.jpg"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Room2">Room2</ListItemText>
-              <ListItemText secondary="Ouverte" align="right"></ListItemText>
-            </ListItem>
+                );
+              })}
 
             {/*========================================================================================================*/}
           </List>
@@ -156,29 +156,19 @@ const Chat = () => {
           {/*===========================================room message zone zoneeeeeeeee====================================================================*/}
 
           <List className={classes.messageArea}>
-            {blocChat.room.messages.map((msg) => {
+            {blocChat.room.messages.map((msg, index) => {
               return (
-                <ListItem key="1">
+                <ListItem key={index}>
                   <Grid container>
                     <Grid item xs={12}>
                       <ListItemText
-                        align={
-                          blocChat.authUser.id.toString() ===
-                          msg.userId.toString()
-                            ? "right"
-                            : "left"
-                        }
+                        align={isMyMessage(blocChat, msg)}
                         primary={msg.message}
                       ></ListItemText>
                     </Grid>
                     <Grid item xs={12}>
                       <ListItemText
-                        align={
-                          blocChat.authUser.id.toString() ===
-                          msg.userId.toString()
-                            ? "right"
-                            : "left"
-                        }
+                        align={isMyMessage(blocChat, msg)}
                         // secondary={
                         //   date.format(Date.now, pattern) // => Mar 16 2020 6:24:56 PM
                         // }
@@ -188,45 +178,6 @@ const Chat = () => {
                 </ListItem>
               );
             })}
-            <ListItem key="1">
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText
-                    align="right"
-                    primary="Hey man, What's up ?"
-                  ></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText align="right" secondary="09:30"></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem key="2">
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText
-                    align="left"
-                    primary="Hey, Iam Good! What about you ?"
-                  ></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText align="left" secondary="09:31"></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem key="3">
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText
-                    align="right"
-                    primary="Cool. i am good, let's catch up!"
-                  ></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText align="right" secondary="10:30"></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
 
             {/*===============================================================================================================*/}
           </List>
@@ -237,10 +188,17 @@ const Chat = () => {
                 id="outlined-basic-email"
                 label="c'est ici qu'il faut écrire..."
                 fullWidth
+                value={blocChat.message}
+                onChange={blocChat.setMessage}
               />
             </Grid>
             <Grid item xs={1} align="right">
-              <Fab color="primary" aria-label="add">
+              <Fab
+                color="primary"
+                aria-label="add"
+                disabled={blocChat.message.length <= 0}
+                onClick={() => blocChat.sendMsg(blocChat.room._id)}
+              >
                 <SendIcon />
               </Fab>
             </Grid>
@@ -252,3 +210,8 @@ const Chat = () => {
 };
 
 export default Chat;
+function isMyMessage(blocChat, msg) {
+  return blocChat.authUser.id.toString() === msg._userId.toString()
+    ? "right"
+    : "left";
+}

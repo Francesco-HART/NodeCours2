@@ -8,6 +8,7 @@ export const AuthService = {
         isLoggedIn: true,
         email: data.email,
         type: data.type,
+        name: data.name,
         id: data._id,
       };
       return authUser;

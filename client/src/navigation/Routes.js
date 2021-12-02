@@ -15,7 +15,7 @@ function Router() {
         <Route path="/register" element={/*Page Login*/ <Register />}></Route>
 
         <Route
-          path="/"
+          path="/room/:id"
           element={<RequireAuth component={/*Page Dashboard*/ <Chat />} />}
         />
         <Route

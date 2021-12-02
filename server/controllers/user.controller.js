@@ -102,6 +102,7 @@ export function updateUser(req, res) {
     name: name,
     email: email,
   };
+
   User.findByIdAndUpdate({ _id: req.params.id }, data, { new: true })
     .select("-password")
     .then((result) => {
@@ -109,6 +110,7 @@ export function updateUser(req, res) {
       return res.status(200).json(result);
     })
     .catch((err) => {
+      console.log(err);
       return res.status(400).json("Cannot update user");
     });
 }
