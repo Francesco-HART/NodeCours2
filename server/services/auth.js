@@ -62,12 +62,10 @@ const signIn = (req, res, next) => {
 
 const cookieExtractor = function (req) {
   let token = null;
-  //TODO: look for cookie extractor
-  const jwt =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiX2lkIjoiNjFhODg5MzM0MTZmZmIxNGY2NWU5MDFmIiwibmFtZSI6IiIsImVtYWlsIjoic2FyYWFoeXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkOGVpY0toQ2ZnWHpWbWpsY2JTTlBST0lrTmZyd3hmbFB2SUhvdFQvTm92cVhwdXB0T0NsRHkiLCJ1c2VyUm9sZSI6Im1lbWJlciIsIl9fdiI6MH0sImlhdCI6MTYzODQzNTQ0My43LCJleHAiOjE2Mzg0Nzg2NDN9.ap6C-OAyFAsRcBxw71dsLDu0tOh0JDKBRdln5t5x7YM";
-  if (req && req.headers.cookie && jwt) token = jwt;
-
-  console.log("TOKEN = ", token);
+  const jwt = req.headers.cookie.split('jwt=').pop().split(';')[0]; // returns 'two'
+  if (req && req.headers.cookie && jwt) {
+    token = jwt;
+  }
   return token;
 };
 
