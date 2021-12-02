@@ -6,7 +6,7 @@ export function login(req, res, next) {
     if (error) {
         return res.status(400).json(error.details[0].message);
     }
-    signIn(res, req, next);
+    signIn(req, res, next);
 }
 
 export function logout(req, res, next) {

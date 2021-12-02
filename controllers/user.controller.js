@@ -1,4 +1,3 @@
-// import User from "../entities/user"
 import bcrypt from "bcrypt";
 import {User, schema} from "../entities/user";
 
@@ -8,18 +7,20 @@ export function create(req, res) {
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
-    let name = req.body.name;
+    let name = "";
     let password = req.body.password;
     let email = req.body.email;
+    let userRole = "member";
 
-    if (name !== null || password !== null || email !== null) {
+    if (password !== null || email !== null) {
         const hash = bcrypt.hashSync(password, 10);
-        const user = new User({name: name, email: email, password: hash})
+        const user = new User({name: name, email: email, password: hash, userRole: userRole})
 
         user.save()
             .then((user) => {
+                user = user.set('password', undefined, {strict: false} );
                     res.status(201).json({
-                        user
+                       user
                     });
                 }
             ).catch((error) => {
@@ -35,6 +36,7 @@ export function create(req, res) {
 
 export function getUser(req, res) {
     User.findById(req.params.id)
+        .select('-password')
         .then((user) => {
             return res.status(200).json(user);
         })
@@ -52,6 +54,7 @@ export function updateUser(req, res) {
         email: email
     }
     User.findByIdAndUpdate({_id: req.params.id}, data, {new: true})
+        .select('-password')
         .then((result) => {
             console.log(result)
             return res.status(200).json(result)
@@ -63,6 +66,7 @@ export function updateUser(req, res) {
 
 export function deleteUser(req, res) {
     User.findOneAndDelete({_id: req.params.id},)
+        .select('-password')
         .then((result) => {
             console.log("result = ", result);
             return res.status(200).json(result);
@@ -72,5 +76,8 @@ export function deleteUser(req, res) {
         });
 }
 
+export function currentUser(req, res) {
 
+    return res.status(200).json(req.user);
 
+}

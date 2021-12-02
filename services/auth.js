@@ -13,6 +13,7 @@ const JwtStrategy = passportJwt.Strategy;
 const ExtractJwt = passportJwt.ExtractJwt;
 
 const LocalStrategy = passportLocal.Strategy;
+
 const localLogin = new LocalStrategy(
     {usernameField: "email"}, async (email, password, done) => {
         const user = await User.findOne({email: email});
@@ -25,21 +26,23 @@ const localLogin = new LocalStrategy(
             } else if (!match) {
                 return done(null, false, {"error": "email incorrect"})
             } else {
-                return done(null, email)
+                return done(null, user)
             }
         })
     }
 )
 
-function signIn(res, req, next) {
-    passport.authenticate("local", {session: false}, (err, email, infos) => {
+const signIn = (req, res, next) => {
+    passport.authenticate("local", {session: false}, (err, user, infos) => {
         if (err) {
-            return res.status(500).json("impossible de se connecter");
-        } else if (!email) {
-            return res.status(500).json("impossible de se connecter");
+            return res.status(500).json(infos);
+        } else if (!user) {
+            return res.status(500).json(infos);
         } else {
             const timestamp = new Date().getTime() / 1000;
-            const token_infos = email;
+            const token_infos = user;
+            // ADD TYPE
+            // const token_infos = email;
             const token = jwt.sign(
                 {sub: token_infos, iat: timestamp},
                 jwtKey,
@@ -50,15 +53,19 @@ function signIn(res, req, next) {
                 signed: true,
                 overwrite: true,
             });
-            res.status(200).send(email);
+            res.status(200).send(user.email);
         }
     })(req, res, next);
 }
 
 const cookieExtractor = function (req) {
     let token = null;
-    if (req && req.cookies && req.cookies.get("jwt"))
-        token = req.cookies.get("jwt");
+    //TODO: look for cookie extractor
+    const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiX2lkIjoiNjFhODg5MzM0MTZmZmIxNGY2NWU5MDFmIiwibmFtZSI6IiIsImVtYWlsIjoic2FyYWFoeXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkOGVpY0toQ2ZnWHpWbWpsY2JTTlBST0lrTmZyd3hmbFB2SUhvdFQvTm92cVhwdXB0T0NsRHkiLCJ1c2VyUm9sZSI6Im1lbWJlciIsIl9fdiI6MH0sImlhdCI6MTYzODQzNTQ0My43LCJleHAiOjE2Mzg0Nzg2NDN9.ap6C-OAyFAsRcBxw71dsLDu0tOh0JDKBRdln5t5x7YM"
+    if (req && req.headers.cookie && jwt)
+        token = jwt;
+
+    console.log('TOKEN = ', token)
     return token;
 };
 
@@ -71,7 +78,9 @@ const jwtOptions = {
 };
 
 const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
-    if (payload.sub) done(null, payload.sub);
+    if (payload.sub) {
+        done(null, payload.sub)
+    }
     else {
         done(null, false);
     }
