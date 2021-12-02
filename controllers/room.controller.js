@@ -37,3 +37,14 @@ export function getRoom(req, res){
             res.status(400).json(err)
         } )
 }
+
+export function getDefaultRoom(req, res){
+    Room.findOne({}, [], { $orderby : { 'created_at' : -1 } })
+        .populate('messages')
+        .then(room => {
+            res.status(200).json(room);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        })
+}

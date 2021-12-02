@@ -10,15 +10,15 @@ export function create(req, res) {
     let message = req.body.message;
     let roomId = req.body._roomId;
 
-    if (message !== null || roomId !== null) {
-        const chat = new Message({message: message, _roomId: roomId})
+    if (message !== null || roomId !== null || req.user._id !== null) {
+        const chat = new Message({message: message, _userId: req.user._id, _roomId: roomId})
 
         chat.save()
             .then((chat) => {
                 Room.updateOne({_id: roomId}, {$push: { messages: chat._id }})
                     .then((room) => {
                         res.status(201).json({
-                            room
+                            chat
                         });
                     })
                     .catch((err) => {

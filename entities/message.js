@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 const MessageModel = mongoose.Schema({
     message: {type: String, required: true},
+    _userId : {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
     _roomId: { type: mongoose.Schema.Types.ObjectId, ref: 'room' },
 }, {
     timestamps: true

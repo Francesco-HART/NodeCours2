@@ -61,7 +61,7 @@ const signIn = (req, res, next) => {
 const cookieExtractor = function (req) {
     let token = null;
     //TODO: look for cookie extractor
-    const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiX2lkIjoiNjFhODhiY2IxNWIwMmViZDdmZGY3MTJhIiwibmFtZSI6IiIsImVtYWlsIjoidGVzdHZhdHRkdGRvckBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRuWTVvUXdpNHloY2t3b2dNT0hjZUpPcHZPbGIyVmgycnNIaXZSREhZY0UxR0tqNHJ1VmtGRyIsInVzZXJSb2xlIjoibWVtYmVyIiwiX192IjowfSwiaWF0IjoxNjM4NDM1NzkyLjcyNywiZXhwIjoxNjM4NDc4OTkyfQ.S57sB08qZqOjwbWT1DF8xtyiNmXx9WfBDwCscQJrYLk"
+    const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiX2lkIjoiNjFhODg5MzM0MTZmZmIxNGY2NWU5MDFmIiwibmFtZSI6IiIsImVtYWlsIjoic2FyYWFoeXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkOGVpY0toQ2ZnWHpWbWpsY2JTTlBST0lrTmZyd3hmbFB2SUhvdFQvTm92cVhwdXB0T0NsRHkiLCJ1c2VyUm9sZSI6Im1lbWJlciIsIl9fdiI6MH0sImlhdCI6MTYzODQzNTQ0My43LCJleHAiOjE2Mzg0Nzg2NDN9.ap6C-OAyFAsRcBxw71dsLDu0tOh0JDKBRdln5t5x7YM"
     if (req && req.headers.cookie && jwt)
         token = jwt;
 
