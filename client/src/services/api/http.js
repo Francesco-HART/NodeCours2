@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_HTTP_PORT = 8000;
-const API_HOST = "localhost";
+const API_HTTP_PORT = process.env.API_PORT ? process.env.API_PORT : 8000;
+const API_HOST = process.env.API_HOST ? process.env.API_HOST : "localhost";
 
 const instance = axios.create({
   baseURL: `http://${API_HOST}:${API_HTTP_PORT}/api`,

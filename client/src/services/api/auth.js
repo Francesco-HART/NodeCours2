@@ -2,7 +2,7 @@ import api from "./http";
 
 export const AuthService = {
   getAuthUser: () =>
-    api.get("/current").then((data) => {
+    api.get("/currentuser").then((data) => {
       const authUser = {
         fetching: false,
         isLoggedIn: true,
@@ -13,6 +13,7 @@ export const AuthService = {
       };
       return authUser;
     }),
+
   login: (data) =>
     api.post("/login", {
       email: data.email,
@@ -20,7 +21,7 @@ export const AuthService = {
     }),
 
   register: (data) =>
-    api.post("/user", {
+    api.post("/register", {
       email: data.email,
       name: data.name,
       password: data.password,

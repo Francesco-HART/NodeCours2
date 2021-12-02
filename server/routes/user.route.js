@@ -3,7 +3,8 @@ import {
   deleteUser,
   getUser,
   updateUser,
-  currentUser
+  currentUser,
+  register,
 } from "../controllers/user.controller";
 import express from "express";
 import require_admin from "../middleware/require_admin";
@@ -14,6 +15,8 @@ router.post("/user", create);
 router.get("/user/:id", require_admin, getUser);
 router.put("/user/:id", updateUser);
 router.delete("/user/:id", require_admin, deleteUser);
-router.get("/currentuser",require_auth,currentUser)
+router.get("/currentuser", require_auth, currentUser);
+
+router.post("/register", register);
 
 export default router;
