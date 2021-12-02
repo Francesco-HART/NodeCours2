@@ -28,9 +28,6 @@ const useChat = () => {
   const sendMsg = (roomId) => {
     RoomService.addMessage(roomId, message)
       .then(async (message) => {
-        let myRoom = { ...room };
-        myRoom.messages.push(message.chat);
-        setRoom(myRoom);
         setMessage("");
       })
       .catch((err) => {
@@ -51,6 +48,23 @@ const useChat = () => {
       setIsRoomsCharging(false);
     }
   }
+
+  const addMessage = (chat) => {
+    let myRoom = { ...room };
+    let messageIsInRoomIn = false;
+    myRoom.messages.forEach((message) => {
+      if (message !== undefined) {
+        if (message._id.toString() === chat._id.toString())
+          messageIsInRoomIn = true;
+      }
+    });
+    if (messageIsInRoomIn) {
+      return;
+    } else {
+      myRoom.messages.push(chat);
+      setRoom(myRoom);
+    }
+  };
 
   async function getDefaultRoom() {
     const getRoom = await RoomService.getDefault();
@@ -104,6 +118,7 @@ const useChat = () => {
     setIsMessageLoading,
     name: name,
     getDefaultRoom,
+    addMessage,
     getRooms,
     isMessageLoading,
     isRoomsCharging,

@@ -41,6 +41,7 @@ const useLogin = () => {
         ) {
           enqueueSnackbar("Bienvenue !", { variant: "success" });
           navigate("/");
+          window.location.reload(false);
         }
       })
       .catch((err) => {

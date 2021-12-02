@@ -1,6 +1,6 @@
 import { Message, schema } from "../entities/message";
 import { Room } from "../entities/room";
-
+import app from "../index";
 export function create(req, res) {
   const { error } = schema.validate(req.body);
   if (error) {
@@ -17,6 +17,7 @@ export function create(req, res) {
       .then((chat) => {
         Room.updateOne({ _id: roomId }, { $push: { messages: chat._id } })
           .then((room) => {
+            app.io.emit(roomId, chat);
             res.status(201).json({
               chat,
             });

@@ -81,15 +81,10 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("hello", (arg) => {
-    socket.emit("hello", "world");
-  });
-});
-
-io.on("hello", (arg) => {
-  console.log("iciiiiiiiiiiiii");
-
+  socket.join("hello");
   socket.emit("hello", "world");
 });
 
 httpServer.listen(5000);
+
+export default { io };

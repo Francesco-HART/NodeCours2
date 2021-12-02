@@ -45,9 +45,6 @@ const Chat = () => {
 
   // La room doit contenir les mx dernier message
   useEffect(() => {
-    blocChat.socket.event();
-    blocChat.socket.emit();
-    blocChat.setName(blocChat.authUser.name);
     blocChat.getRooms();
     if (id) blocChat.getRoomById(id);
     else blocChat.getDefaultRoom();
@@ -58,6 +55,10 @@ const Chat = () => {
   function handlePushRoom(id) {
     navigate("/room/" + id, { replace: true });
   }
+
+  blocChat.socket.socket.on(blocChat.room._id, (arg) => {
+    blocChat.addMessage(arg);
+  });
 
   return (
     <div>

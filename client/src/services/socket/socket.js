@@ -14,24 +14,16 @@ const webSocket = () => {
     });
 
     //socket join
-    console.log(socket);
 
-    const event = () => {
-      socket.on("hello", (arg) => {
+    const event = (roomId) => {
+      socket.on(roomId, (arg) => {
         console.log(arg, "iciiiiiiiiiiiiiiiiiiiiii"); // world
       });
     };
 
-    console.log(socket);
-
-    const emit = () => {
-      console.log("iciiiiiiiiiiiiiii");
-      socket.emit("hello", "world");
-    };
-
     return {
       event,
-      emit,
+      socket,
     };
   } catch (err) {
     throw err;
