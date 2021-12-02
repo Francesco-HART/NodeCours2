@@ -26,21 +26,21 @@ const localLogin = new LocalStrategy(
             } else if (!match) {
                 return done(null, false, {"error": "email incorrect"})
             } else {
-                return done(null, email)
+                return done(null, user)
             }
         })
     }
 )
 
 const signIn = (req, res, next) => {
-    passport.authenticate("local", {session: false}, (err, email, infos) => {
+    passport.authenticate("local", {session: false}, (err, user, infos) => {
         if (err) {
             return res.status(500).json(infos);
-        } else if (!email) {
+        } else if (!user) {
             return res.status(500).json(infos);
         } else {
             const timestamp = new Date().getTime() / 1000;
-            const token_infos = {email};
+            const token_infos = user;
             // ADD TYPE
             // const token_infos = email;
             const token = jwt.sign(
@@ -53,7 +53,7 @@ const signIn = (req, res, next) => {
                 signed: true,
                 overwrite: true,
             });
-            res.status(200).send(email);
+            res.status(200).send(user.email);
         }
     })(req, res, next);
 }
@@ -61,7 +61,7 @@ const signIn = (req, res, next) => {
 const cookieExtractor = function (req) {
     let token = null;
     //TODO: look for cookie extractor
-    const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYXJhYWh5dEBnbWFpbC5jb20iLCJpYXQiOjE2MzgzNjg0NjguMzEzLCJleHAiOjE2Mzg0MTE2Njh9.ENVEm3lxmOOCOfYVMdWLKdUoCmL-UA7S_GmZbup2H2k"
+    const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiX2lkIjoiNjFhODg5MzM0MTZmZmIxNGY2NWU5MDFmIiwibmFtZSI6IiIsImVtYWlsIjoic2FyYWFoeXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkOGVpY0toQ2ZnWHpWbWpsY2JTTlBST0lrTmZyd3hmbFB2SUhvdFQvTm92cVhwdXB0T0NsRHkiLCJ1c2VyUm9sZSI6Im1lbWJlciIsIl9fdiI6MH0sImlhdCI6MTYzODQzNTQ0My43LCJleHAiOjE2Mzg0Nzg2NDN9.ap6C-OAyFAsRcBxw71dsLDu0tOh0JDKBRdln5t5x7YM"
     if (req && req.headers.cookie && jwt)
         token = jwt;
 

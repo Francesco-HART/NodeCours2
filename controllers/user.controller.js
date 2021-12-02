@@ -18,8 +18,9 @@ export function create(req, res) {
 
         user.save()
             .then((user) => {
+                user = user.set('password', undefined, {strict: false} );
                     res.status(201).json({
-                        user
+                       user
                     });
                 }
             ).catch((error) => {
@@ -35,6 +36,7 @@ export function create(req, res) {
 
 export function getUser(req, res) {
     User.findById(req.params.id)
+        .select('-password')
         .then((user) => {
             return res.status(200).json(user);
         })
@@ -52,6 +54,7 @@ export function updateUser(req, res) {
         email: email
     }
     User.findByIdAndUpdate({_id: req.params.id}, data, {new: true})
+        .select('-password')
         .then((result) => {
             console.log(result)
             return res.status(200).json(result)
@@ -63,6 +66,7 @@ export function updateUser(req, res) {
 
 export function deleteUser(req, res) {
     User.findOneAndDelete({_id: req.params.id},)
+        .select('-password')
         .then((result) => {
             console.log("result = ", result);
             return res.status(200).json(result);
