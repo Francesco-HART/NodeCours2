@@ -130,23 +130,22 @@ const Chat = () => {
           {/*===================================================Room section=====================================================*/}
           <List>
             {!blocChat.isRoomsCharging &&
-              blocChat.rooms.map((room, index) => {
+              blocChat.rooms.map((elem, index) => {
                 return (
                   <ListItem key={index}>
                     <ListItemIcon>
                       <Avatar
-                        alt={room.name}
+                        alt={elem.name}
                         src="https://material-ui.com/static/images/avatar/1.jpg"
                       />
                     </ListItemIcon>
-                    <ListItemText primary={room.name}>{room.name}</ListItemText>
-                    <ListItemText
-                      secondary="Ouverte"
-                      align="right"
-                    ></ListItemText>
-                    <Button onClick={() => handlePushRoom(room._id)}>
-                      Rejoindre
-                    </Button>
+                    <ListItemText primary={elem.name}>{elem.name}</ListItemText>
+                    <ListItemText align="right"></ListItemText>
+                    {blocChat.room._id.toString() !== elem._id.toString() && (
+                      <Button onClick={() => handlePushRoom(elem._id)}>
+                        Rejoindre
+                      </Button>
+                    )}
                   </ListItem>
                 );
               })}
