@@ -12,6 +12,11 @@ import useLogin from "./useLogin";
 import { IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
+/**
+ * View of Login
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function Login() {
   const blocLogin = useLogin();
   return (

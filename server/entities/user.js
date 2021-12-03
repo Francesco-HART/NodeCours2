@@ -1,6 +1,10 @@
 import Joi from 'joi'
 import mongoose from 'mongoose';
 
+/**
+ * Entities of user
+ * @type {*}
+ */
 const UserModel = mongoose.Schema({
     name: {type: String, required: false},
     email: {type: String, required: true, unique: true},

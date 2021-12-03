@@ -1,5 +1,9 @@
 import api from "./http";
 
+/**
+ * This page fetch all the infos of auth action
+ * @type {{getAuthUser: (function(): Promise<{name, isLoggedIn: boolean, fetching: boolean, id: *, type, email}>), logout: (function(*): Promise<*>), login: (function(*): Promise<*>), register: (function(*): Promise<*>)}}
+ */
 export const AuthService = {
   getAuthUser: () =>
     api.get("/currentuser").then((data) => {

@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+/**
+ * View of use Register
+ */
 const schema = Yup.object().shape({
   name: Yup.string(),
   email: Yup.string().email().required("Champs manquant"),

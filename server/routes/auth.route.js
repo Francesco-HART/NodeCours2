@@ -3,6 +3,9 @@ import { login, logout } from "../controllers/auth.controller";
 const router = express.Router();
 import authCheck from "../middleware/require_auth";
 
+/**
+ * Routes of authentification
+ */
 router.post("/login", login);
 router.get("/logout", authCheck, logout);
 

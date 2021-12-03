@@ -1,6 +1,10 @@
 import Joi from "joi";
 import mongoose from "mongoose";
 
+/**
+ * Entities of message
+ * @type {*}
+ */
 const MessageModel = mongoose.Schema(
     {
         message: {type: String, required: true},

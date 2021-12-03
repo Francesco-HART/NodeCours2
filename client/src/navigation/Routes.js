@@ -8,6 +8,12 @@ import RequireAdmin from "./RequireAdmin";
 import Users from "../views/user/Users";
 import UpdateOneUser from "../views/user/UpdateUser";
 import RequireNoAuth from "./RequireNoAuth";
+
+/**
+ * The router return to the page selected by the user
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Router() {
   return (
     <AuthProvider>

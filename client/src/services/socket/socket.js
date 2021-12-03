@@ -1,4 +1,9 @@
 import * as io from "socket.io-client";
+
+/**
+ * Creation of communication with socket
+ */
+
 const { Manager } = require("socket.io-client");
 
 const webSocket = () => {
@@ -17,7 +22,7 @@ const webSocket = () => {
 
     const event = (roomId) => {
       socket.on(roomId, (arg) => {
-        console.log(arg, "iciiiiiiiiiiiiiiiiiiiiii"); // world
+        console.log(arg, "je suis connecté"); // world
       });
     };
 

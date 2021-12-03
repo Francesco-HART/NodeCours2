@@ -1,6 +1,12 @@
 import bcrypt from "bcrypt";
 import { User, schema } from "../entities/user";
 
+/**
+ * Function used to create a user
+ * @param req
+ * @param res
+ * @returns {*}
+ */
 export function create(req, res) {
   const { error } = schema.validate(req.body);
   if (error) {
@@ -43,6 +49,12 @@ export function create(req, res) {
   }
 }
 
+/**
+ * Function used to register a user
+ * @param req
+ * @param res
+ * @returns {*}
+ */
 export function register(req, res) {
   // const { error } = schema.validate(req.body);
   // if (error) {
@@ -85,6 +97,11 @@ export function register(req, res) {
   }
 }
 
+/**
+ * Function used to get a user
+ * @param req
+ * @param res
+ */
 export function getUser(req, res) {
   User.findById(req.params.id)
     .select("-password")
@@ -96,6 +113,11 @@ export function getUser(req, res) {
     });
 }
 
+/**
+ * Function used to update a user
+ * @param req
+ * @param res
+ */
 export function updateUser(req, res) {
   let name = req.body.name;
   let email = req.body.email;
@@ -114,6 +136,11 @@ export function updateUser(req, res) {
     });
 }
 
+/**
+ * Function used to delete a user
+ * @param req
+ * @param res
+ */
 export function deleteUser(req, res) {
   User.findOneAndDelete({ _id: req.params.id })
     .select("-password")
@@ -125,11 +152,23 @@ export function deleteUser(req, res) {
     });
 }
 
+/**
+ * function used to get current user
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 export async function currentUser(req, res) {
   const user = await User.findById(req.user._id);
   return res.status(200).json(user);
 }
 
+/**
+ * function used to update password
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 export async function updatePassword(req, res) {
   try {
     const randomstring = Math.random().toString(36).slice(-8);

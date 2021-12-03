@@ -11,6 +11,11 @@ import { Box } from "@mui/system";
 import useUpdateOneUser from "./useUpdateOneUser";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
+/**
+ * View of Update user
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const UpdateOneUser = () => {
   const blocUpdateUsers = useUpdateOneUser();
   return (

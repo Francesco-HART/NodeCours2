@@ -8,6 +8,9 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserService } from "../../services/api/user";
 
+/**
+ * View of use update one user
+ */
 const schema = Yup.object().shape({
   name: Yup.string(),
   email: Yup.string().email().required("Champs manquant"),

@@ -16,6 +16,11 @@ import useChat from "./useChat";
 import { Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+/**
+ * View of chat page
+ * @type {(props?: any) => ClassNameMap<"headBG"|"chatSection"|"messageArea"|"borderRight500"|"table">}
+ */
 const useStyles = makeStyles({
   table: {
     minWidth: 650,

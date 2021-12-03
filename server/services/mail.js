@@ -4,6 +4,12 @@ import {
   getTestMessageUrl,
 } from "nodemailer";
 
+/**
+ * Services of mail
+ * @param newPassword
+ * @param email
+ * @returns {Promise<void>}
+ */
 // async..await is not allowed in global scope, must use a wrapper
 async function send(newPassword, email) {
   // Generate test SMTP service account from ethereal.email
