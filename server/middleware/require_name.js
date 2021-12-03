@@ -1,5 +1,12 @@
 import { User } from "../entities/user";
 
+/**
+ * Restriction who require a name
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<*>}
+ */
 const requireName = async (req, res, next) => {
   const user = await User.findById(req.user._id);
   if (user.name === "")

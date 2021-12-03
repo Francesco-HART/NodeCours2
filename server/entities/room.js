@@ -1,6 +1,10 @@
 import Joi from 'joi'
 import mongoose from 'mongoose';
 
+/**
+ * Entities of room
+ * @type {*}
+ */
 const RoomModel = mongoose.Schema({
     name: {type: String, required: true},
     messages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Message'}],

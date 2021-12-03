@@ -1,5 +1,11 @@
 import {Room, schema} from "../entities/room";
 
+/**
+ * Function used to create a room
+ * @param req
+ * @param res
+ * @returns {*}
+ */
 export function create(req, res) {
     const { error } = schema.validate(req.body);
     if (error) {
@@ -27,9 +33,22 @@ export function create(req, res) {
     }
 }
 
+/**
+ * function used to get all rooms
+ * @param req
+ * @param res
+ */
 export function getAllRoom(req, res){
     Room.find()
-        .populate('messages')
+    .populate({
+        path: 'messages',
+        options: {
+            limit: 20,
+        },
+        populate : {
+            path: "_userId",
+        },
+    })
         .then((room) =>{
             res.status(200).json(room)
         })
@@ -38,9 +57,22 @@ export function getAllRoom(req, res){
         } )
 }
 
+/**
+ * Function used to get a specify room
+ * @param req
+ * @param res
+ */
 export function getRoom(req, res){
     Room.findOne({_id: req.params.id})
-        .populate('messages')
+    .populate({
+        path: 'messages',
+        options: {
+            limit: 20,
+        },
+        populate : {
+            path: "_userId",
+        },
+    })
         .then((room) =>{
             res.status(200).json(room)
         })
@@ -49,9 +81,23 @@ export function getRoom(req, res){
         } )
 }
 
+/**
+ * Function used to get the default room
+ * @param req
+ * @param res
+ */
 export function getDefaultRoom(req, res){
     Room.findOne({}, [], { $orderby : { 'created_at' : -1 } })
-        .populate('messages')
+
+    .populate({
+        path: 'messages',
+        options: {
+            limit: 20,
+        },
+        populate : {
+            path: "_userId",
+        },
+    })
         .then(room => {
             res.status(200).json(room);
         })

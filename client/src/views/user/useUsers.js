@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { UserService } from "../../services/api/user";
+
+/**
+ * view of use users
+ * @returns {{navigateToHome: navigateToHome, navigateToUpdateOneUser: navigateToUpdateOneUser, users: [{name: string, id: string, type: string, email: string}]}}
+ */
 const useUsers = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([

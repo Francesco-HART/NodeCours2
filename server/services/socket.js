@@ -1,4 +1,7 @@
 // Websocket server
+/**
+ * Services of socket
+ */
 const io = socketIo(server, { transports: ["websocket", "polling"] });
 io.adapter(redisAdapter({ host: REDIS_HOST, port: REDIS_PORT }));
 io.set("origins", "*:*");

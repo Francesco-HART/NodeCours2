@@ -6,6 +6,11 @@ import { UserService } from "../../services/api/user";
 import { typesUser } from "../../services/store/actionTypes";
 import webSocket from "../../services/socket/socket";
 import { AuthService } from "../../services/api/auth";
+
+/**
+ * View of use Chat
+ * @returns {{setName: (value: unknown) => void, isRoomsCharging: boolean, rooms: *[], setIsMessageLoading: (value: (((prevState: boolean) => boolean) | boolean)) => void, isNameUpdating: boolean, message: string, setMessage: setMsg, authUser: *, getDefaultRoom: ((function(): Promise<void>)|*), onchangeName: onchangeName, updateName: updateName, isMessageLoading: boolean, room: undefined, addMessage: addMessage, name: unknown, valideName: valideName, getRooms: ((function(): Promise<void>)|*), socket: {socket: *, event: function(*=): void}, sendMsg: sendMsg, logOut: ((function(): Promise<void>)|*), getRoomById: ((function(*=): Promise<void>)|*)}}
+ */
 const useChat = () => {
   const socket = webSocket();
   const authContext = useContext(AuthContext);

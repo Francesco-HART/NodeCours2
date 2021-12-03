@@ -6,6 +6,10 @@ import {
 import express from "express";
 import require_auth from "../middleware/require_auth";
 
+/**
+ * Routes of room
+ * @type {Router}
+ */
 const router = express.Router();
 
 router.post("/room", require_auth, create);

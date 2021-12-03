@@ -2,14 +2,27 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# The project was created by Francesco, Sarah, Emerick and Franck
+The objective is to create a chat service with Node.js
+A user can talk in many rooms with other users if he is register and if he had a name.
+If he is not register he can do it in the register page and connect after in the login page.
+A admin has a dashboard page where he can see all the users and will change the user role from users to admin if he want.
 ## Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in client side\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `npm run dev`
+
+Runs the app in server side.\
+Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.

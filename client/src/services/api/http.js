@@ -1,5 +1,9 @@
 import axios from "axios";
 
+/**
+ * This page contains all the types of request and response
+ *
+ */
 const API_HTTP_PORT = process.env.API_PORT ? process.env.API_PORT : 8000;
 const API_HOST = process.env.API_HOST ? process.env.API_HOST : "localhost";
 

@@ -8,6 +8,9 @@ import { AuthContext } from "../../services/store/authContext";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+/**
+ * View of use login
+ */
 const schema = Yup.object().shape({
   email: Yup.string().email().required("Champs manquant"),
   password: Yup.string().required("Champs manquant"),

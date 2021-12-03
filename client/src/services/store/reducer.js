@@ -1,4 +1,9 @@
 import { initialAuthUser } from "./AuthProvider";
+
+/**
+ * regroup the reducers actions
+ * @type {{type: string}}
+ */
 export const Logout = {
   type: "LOGOUT",
 };

@@ -1,11 +1,15 @@
 import passportLocal from "passport-local";
 import passport from "passport";
-import { User } from "../entities/user";
+import {User} from "../entities/user";
 import bcrypt from "bcrypt";
 import Cookies from "cookies";
 import jwt from "jsonwebtoken";
 import passportJwt from "passport-jwt";
 
+/**
+ * Services of Authentification
+ * @type {string}
+ */
 const cookieKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJ1c2VybmFtZSI6IkFub255bWUiLCJyb2xlIjoiVXNlciJ9._qpO3Uagw4kt8SbDWBy2AC7sF8H_dqF6r8I9eqK7Dtc";
 const jwtKey =
@@ -41,7 +45,7 @@ const signIn = (req, res, next) => {
     if (err) {
       return res.status(500).json(infos);
     } else if (!user) {
-      return res.status(500).json(infos);
+      return res.status(401).json(infos);
     } else {
       const timestamp = new Date().getTime() / 1000;
       const token_infos = user;
@@ -62,9 +66,9 @@ const signIn = (req, res, next) => {
 
 const cookieExtractor = function (req) {
   let token = null;
-  const jwt = req.headers.cookie.split("jwt=").pop().split(";")[0]; // returns 'two'
-  if (req && req.headers.cookie && jwt) {
-    token = jwt;
+
+  if (req && req.headers.cookie) {
+    token = req.headers.cookie.split("jwt=").pop().split(";")[0];
   }
   return token;
 };

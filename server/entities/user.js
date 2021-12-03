@@ -1,6 +1,10 @@
 import Joi from 'joi'
 import mongoose from 'mongoose';
 
+/**
+ * Entities of user
+ * @type {*}
+ */
 const UserModel = mongoose.Schema({
     name: {type: String, required: false},
     email: {type: String, required: true, unique: true},
@@ -11,7 +15,8 @@ const UserModel = mongoose.Schema({
 
 const schema = Joi.object({
     email: Joi.string().min(5).max(255).required().email(),
-    password: Joi.string().min(5).max(255).required()
+    password: Joi.string().min(5).max(255).required(),
+    confirm_password: Joi.string().min(5).max(255).required()
 });
 
 const User = mongoose.model("user", UserModel)

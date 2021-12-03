@@ -11,6 +11,12 @@ import {
 } from "@mui/material";
 import useRegister from "./useRegister";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+
+/**
+ * View of Register
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Register = () => {
   const blocRegister = useRegister();
 

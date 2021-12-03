@@ -10,6 +10,11 @@ import { CardContent, Card, IconButton, Button } from "@mui/material";
 import ModeIcon from "@mui/icons-material/Mode";
 import useUsers from "./useUsers";
 
+/**
+ * View of User
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function Users() {
   const blocUsers = useUsers();
 

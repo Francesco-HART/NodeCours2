@@ -1,5 +1,9 @@
 import api from "./http";
 
+/**
+ * This page contains the user service
+ * @type {{updatePassword: (function(*, *): Promise<unknown>), updateInfos: (function(*, *=): Promise<unknown>), getUsers: (function(): Promise<unknown>)}}
+ */
 export const UserService = {
   getUsers: () => api.get("/user"),
   updatePassword: (id, data) =>
