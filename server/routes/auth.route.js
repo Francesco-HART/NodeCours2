@@ -10,6 +10,6 @@ import { send } from "../services/mail";
  */
 router.post("/login", login);
 router.get("/logout", authCheck, logout);
-router.get("/updatepassword", updatePassword);
+router.get("/updatepassword", authCheck, updatePassword);
 
 export default router;

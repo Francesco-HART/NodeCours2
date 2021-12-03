@@ -24,6 +24,8 @@ export const AuthService = {
       password: data.password,
     }),
 
+  updatePassword: () => api.get("/updatepassword"),
+
   register: (data) =>
     api.post("/register", {
       email: data.email,

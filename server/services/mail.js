@@ -22,8 +22,6 @@ async function send(newPassword, email) {
     },
   });
 
-  console.log(newPassword);
-
   // send mail with defined transport object
   transporter.sendMail({
     from: "equipecoding@gmail.com",
@@ -32,6 +30,5 @@ async function send(newPassword, email) {
     text: "Bonjour voila ton nouveau mot de passe", // plain text body
     html: "<b>" + newPassword + "</b>", // html body
   });
-  console.log(info);
 }
 export { send };
