@@ -1,18 +1,4 @@
-import request from "supertest";
-import express from "express";
-import userRoutes from "../routes/user.route";
-import {
-  create,
-  deleteUser,
-  getUser,
-  updateUser,
-  currentUser,
-  register,
-} from "../controllers/user.controller";
-
 import frisby from "frisby";
-
-const ccookies = "";
 
 describe("GET /user", function () {
   it("should test get current user 401 status Unauthorized because of middlewares", function () {
