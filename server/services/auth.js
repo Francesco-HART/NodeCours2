@@ -1,6 +1,6 @@
 import passportLocal from "passport-local";
 import passport from "passport";
-import { User } from "../entities/user";
+import {User} from "../entities/user";
 import bcrypt from "bcrypt";
 import Cookies from "cookies";
 import jwt from "jsonwebtoken";
@@ -62,9 +62,9 @@ const signIn = (req, res, next) => {
 
 const cookieExtractor = function (req) {
   let token = null;
-  const jwt = req.headers.cookie.split("jwt=").pop().split(";")[0]; // returns 'two'
-  if (req && req.headers.cookie && jwt) {
-    token = jwt;
+
+  if (req && req.headers.cookie) {
+    token = req.headers.cookie.split("jwt=").pop().split(";")[0];
   }
   return token;
 };
