@@ -41,7 +41,7 @@ const signIn = (req, res, next) => {
     if (err) {
       return res.status(500).json(infos);
     } else if (!user) {
-      return res.status(500).json(infos);
+      return res.status(401).json(infos);
     } else {
       const timestamp = new Date().getTime() / 1000;
       const token_infos = user;
