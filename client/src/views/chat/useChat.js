@@ -59,6 +59,19 @@ const useChat = () => {
     }
   }
 
+  const updatePassword = async () => {
+    console.log("iciiiiiiiiiiiiiiii");
+    await AuthService.updatePassword()
+      .then((res) => {
+        enqueueSnackbar("Nouveau mot de passe envoyé par mail", {
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const addMessage = (chat) => {
     let myRoom = { ...room };
     let messageIsInRoomIn = false;
@@ -127,6 +140,7 @@ const useChat = () => {
     setMessage: setMsg,
     authUser: authContext.authUser,
     isNameUpdating,
+    updatePassword,
     updateName,
     getRoomById,
     valideName,

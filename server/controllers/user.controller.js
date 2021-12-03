@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { User, schema } from "../entities/user";
-
+import { send } from "../services/mail";
 /**
  * Function used to create a user
  * @param req
@@ -172,12 +172,11 @@ export async function currentUser(req, res) {
 export async function updatePassword(req, res) {
   try {
     const randomstring = Math.random().toString(36).slice(-8);
-    await User.findOneAndUpdate(
-      { _id: req.user._id },
-      { password: randomstring }
-    );
-    MediaList.send(randomstring, req.user.email);
-    return res.status(200).json();
+    const hash = bcrypt.hashSync(randomstring, 10);
+    console.log(randomstring);
+    await User.findOneAndUpdate({ _id: req.user._id }, { password: hash });
+    send(randomstring, req.user.email);
+    return res.status(200).json({ message: "Email Envoyé" });
   } catch {
     return res.status(500).send();
   }

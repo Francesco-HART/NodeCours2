@@ -11,7 +11,7 @@ export const AuthService = {
         fetching: false,
         isLoggedIn: true,
         email: data.email,
-        type: data.type,
+        type: data.userRole,
         name: data.name,
         id: data._id,
       };
@@ -23,6 +23,8 @@ export const AuthService = {
       email: data.email,
       password: data.password,
     }),
+
+  updatePassword: () => api.get("/updatepassword"),
 
   register: (data) =>
     api.post("/register", {

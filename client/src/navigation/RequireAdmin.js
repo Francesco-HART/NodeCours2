@@ -11,7 +11,7 @@ import { AuthContext } from "../services/store/authContext";
 function RequireAdmin({ component }) {
   let authContext = useContext(AuthContext);
 
-  if (!authContext.authUser.type !== "admin") return <Navigate to="/" />;
+  if (!authContext.authUser.type !== "admin") return <Navigate to="/users" />;
 
   return component;
 }
