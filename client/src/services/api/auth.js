@@ -11,7 +11,7 @@ export const AuthService = {
         fetching: false,
         isLoggedIn: true,
         email: data.email,
-        type: data.type,
+        type: data.userRole,
         name: data.name,
         id: data._id,
       };
