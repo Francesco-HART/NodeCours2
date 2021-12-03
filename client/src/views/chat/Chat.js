@@ -16,7 +16,6 @@ import useChat from "./useChat";
 import { Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -57,6 +56,10 @@ const Chat = () => {
   function handlePushRoom(id) {
     navigate("/room/" + id, { replace: true });
   }
+
+  blocChat.socket.socket.on(blocChat.room._id, (arg) => {
+    blocChat.addMessage(arg);
+  });
 
   return (
     <div>
@@ -109,6 +112,9 @@ const Chat = () => {
                   Valider
                 </Button>
               </ListItem>
+              <Button color="secondary" onClick={blocChat.logOut}>
+                Se Deconnecter
+              </Button>
 
               <ListItemText primary={blocChat.authLogin}></ListItemText>
             </ListItem>
@@ -128,23 +134,22 @@ const Chat = () => {
           {/*===================================================Room section=====================================================*/}
           <List>
             {!blocChat.isRoomsCharging &&
-              blocChat.rooms.map((room, index) => {
+              blocChat.rooms.map((elem, index) => {
                 return (
                   <ListItem key={index}>
                     <ListItemIcon>
                       <Avatar
-                        alt={room.name}
+                        alt={elem.name}
                         src="https://material-ui.com/static/images/avatar/1.jpg"
                       />
                     </ListItemIcon>
-                    <ListItemText primary={room.name}>{room.name}</ListItemText>
-                    <ListItemText
-                      secondary="Ouverte"
-                      align="right"
-                    ></ListItemText>
-                    <Button onClick={() => handlePushRoom(room._id)}>
-                      Rejoindre
-                    </Button>
+                    <ListItemText primary={elem.name}>{elem.name}</ListItemText>
+                    <ListItemText align="right"></ListItemText>
+                    {blocChat.room._id.toString() !== elem._id.toString() && (
+                      <Button onClick={() => handlePushRoom(elem._id)}>
+                        Rejoindre
+                      </Button>
+                    )}
                   </ListItem>
                 );
               })}
@@ -169,9 +174,7 @@ const Chat = () => {
                     <Grid item xs={12}>
                       <ListItemText
                         align={isMyMessage(blocChat, msg)}
-                        // secondary={
-                        //   date.format(Date.now, pattern) // => Mar 16 2020 6:24:56 PM
-                        // }
+                        secondary={"iciii"}
                       ></ListItemText>
                     </Grid>
                   </Grid>
@@ -188,6 +191,7 @@ const Chat = () => {
                 id="outlined-basic-email"
                 label="c'est ici qu'il faut écrire..."
                 fullWidth
+                disabled={blocChat.authUser.name ? false : true}
                 value={blocChat.message}
                 onChange={blocChat.setMessage}
               />

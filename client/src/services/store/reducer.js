@@ -36,6 +36,6 @@ export const reducer = (state, action) => {
       };
 
     default:
-      throw new Error();
+      console.log(action, "Action type");
   }
 };

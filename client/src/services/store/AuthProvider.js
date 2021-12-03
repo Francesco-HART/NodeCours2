@@ -21,7 +21,7 @@ export function useProvideAuth() {
         const currentAuthUser = await AuthService.getAuthUser();
         if (currentAuthUser)
           setAuthUser({
-            type: typesUser.LOGIN,
+            type: "LOGIN",
             authUser: currentAuthUser,
           });
         else
@@ -62,7 +62,8 @@ function AuthProvider({ children }) {
       <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
     );
   } catch (err) {
-    console.log("error reducer :", err);
+    console.log("error reducer :", err.message);
+    console.log(err);
     return <div></div>;
   }
 }
