@@ -11,10 +11,7 @@ import require_admin from "../middleware/require_admin";
 import require_auth from "../middleware/require_auth";
 const router = express.Router();
 
-/**
- * Routes of user
- */
-router.post("/user", create);
+router.post("/user", require_auth, require_admin, create);
 router.get("/user/:id", require_auth, require_admin, getUser);
 router.put("/user/:id", updateUser);
 router.delete("/user/:id", require_auth, require_admin, deleteUser);
