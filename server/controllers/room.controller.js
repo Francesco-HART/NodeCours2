@@ -32,7 +32,7 @@ export function getAllRoom(req, res){
     .populate({
         path: 'messages',
         options: {
-            limit: 2,
+            limit: 50,
         },
         populate : {
             path: "_userId",
@@ -51,7 +51,7 @@ export function getRoom(req, res){
     .populate({
         path: 'messages',
         options: {
-            limit: 2,
+            limit: 50,
         },
         populate : {
             path: "_userId",
@@ -70,7 +70,7 @@ export function getDefaultRoom(req, res){
     .populate({
         path: 'messages',
         options: {
-            limit: 2,
+            limit: 50,
         },
         populate : {
             path: "_userId",
