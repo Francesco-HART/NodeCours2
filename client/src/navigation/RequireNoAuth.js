@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../services/store/authContext";
-function RequireAuth({ component }) {
+function RequireNoAuth({ component }) {
   let authContext = useContext(AuthContext);
 
-  if (!authContext.authUser.isLoggedIn) return <Navigate to="/login" />;
+  if (authContext.authUser.isLoggedIn) return <Navigate to="/" />;
 
   return component;
 }
 
-export default RequireAuth;
+export default RequireNoAuth;

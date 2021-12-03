@@ -39,11 +39,9 @@ const useLogin = () => {
           type: typesUser.LOGIN,
           authUser: currentAuthUser,
         });
-        console.log(currentAuthUser);
         if (currentAuthUser && currentAuthUser.isLoggedIn) {
           enqueueSnackbar("Bienvenue !", { variant: "success" });
           navigate("/");
-          window.location.reload(false);
         }
       })
       .catch((err) => {

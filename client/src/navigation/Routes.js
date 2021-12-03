@@ -7,12 +7,21 @@ import Chat from "../views/chat/Chat";
 import RequireAdmin from "./RequireAdmin";
 import Users from "../views/user/Users";
 import UpdateOneUser from "../views/user/UpdateUser";
+import RequireNoAuth from "./RequireNoAuth";
 function Router() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/login" element={/*Page Login*/ <Login />}></Route>
-        <Route path="/register" element={/*Page Login*/ <Register />}></Route>
+        <Route
+          path="/login"
+          element={<RequireNoAuth component={/*Page Dashboard*/ <Login />} />}
+        />
+        <Route
+          path="/register"
+          element={
+            <RequireNoAuth component={/*Page Dashboard*/ <Register />} />
+          }
+        />
         <Route
           path="/"
           element={<RequireAuth component={/*Page Dashboard*/ <Chat />} />}

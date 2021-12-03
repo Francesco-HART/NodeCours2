@@ -6,11 +6,9 @@ import { UserService } from "../../services/api/user";
 import { typesUser } from "../../services/store/actionTypes";
 import webSocket from "../../services/socket/socket";
 import { AuthService } from "../../services/api/auth";
-
 const useChat = () => {
   const socket = webSocket();
   const authContext = useContext(AuthContext);
-
   const [rooms, setRooms] = useState([]);
   const [room, setRoom] = useState();
   const [isMessageLoading, setIsMessageLoading] = useState(true);
@@ -43,7 +41,6 @@ const useChat = () => {
     await authContext?.setAuthUser({
       type: typesUser.LOGOUT,
     });
-    window.location.reload(false);
   };
 
   async function getRooms() {
