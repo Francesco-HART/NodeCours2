@@ -63,16 +63,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 const server = app.listen(port, () => {
   console.log("Server app listening on port " + port);
 });
-// //socket
-// const io = new Server(server, {
-//   transports: ["websocket", "polling"],
-//   origins: "*:*",
-//   cors: {
-//     origin: "http://localhost:3000",
-//     transports: ["websocket", "polling"],
-//     credentials: true,
-//   },
-// });
+
 const httpServer = createServer();
 
 // io.listen(server);

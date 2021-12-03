@@ -174,9 +174,7 @@ const Chat = () => {
                     <Grid item xs={12}>
                       <ListItemText
                         align={isMyMessage(blocChat, msg)}
-                        // secondary={
-                        //   date.format(Date.now, pattern) // => Mar 16 2020 6:24:56 PM
-                        // }
+                        secondary={"iciii"}
                       ></ListItemText>
                     </Grid>
                   </Grid>
