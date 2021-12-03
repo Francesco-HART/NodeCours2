@@ -6,6 +6,9 @@ import authCheck from "../middleware/require_auth";
 import requireName from "../middleware/require_name";
 const router = express.Router();
 
+/**
+ * Routes of message
+ */
 router.post("/message", authCheck, requireName, create);
 
 export default router;

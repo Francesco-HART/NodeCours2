@@ -1,3 +1,10 @@
+/**
+ * Restriction to Admin role
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
  const requireAdmin = (req, res, next) => {
     if (req.user.userRole === "membre")
         return res

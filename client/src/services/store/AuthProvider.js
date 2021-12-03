@@ -4,6 +4,10 @@ import { typesUser } from "./actionTypes";
 import { AuthContext } from "./authContext";
 import { AuthService } from "../api/auth";
 
+/**
+ * Initialization of auth user
+ * @type {{isLoggedIn: boolean, fetching: boolean, type: string, email: string}}
+ */
 export const initialAuthUser = {
   fetching: true,
   isLoggedIn: false,
@@ -11,6 +15,10 @@ export const initialAuthUser = {
   type: "",
 };
 
+/**
+ * Get current user
+ * @returns {{setAuthUser: () => void, authUser: S}}
+ */
 export function useProvideAuth() {
   const [authUser, setAuthUser] = useReducer(reducer, initialAuthUser);
 

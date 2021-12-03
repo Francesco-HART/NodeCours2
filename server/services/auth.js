@@ -6,6 +6,10 @@ import Cookies from "cookies";
 import jwt from "jsonwebtoken";
 import passportJwt from "passport-jwt";
 
+/**
+ * Services of Authentification
+ * @type {string}
+ */
 const cookieKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJ1c2VybmFtZSI6IkFub255bWUiLCJyb2xlIjoiVXNlciJ9._qpO3Uagw4kt8SbDWBy2AC7sF8H_dqF6r8I9eqK7Dtc";
 const jwtKey =

@@ -1,5 +1,9 @@
 import api from "./http";
 
+/**
+ * This page contains all the service of rooms
+ * @type {{getAll: (function(): Promise<unknown>), getOneById: (function(*): Promise<unknown>), getDefault: (function(): Promise<unknown>), addMessage: (function(*, *): Promise<unknown>)}}
+ */
 export const RoomService = {
   getAll: () =>
     api.get("/rooms").then((data) => {

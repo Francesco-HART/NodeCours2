@@ -2,7 +2,12 @@ import {Message, schema} from "../entities/message";
 import {Room} from "../entities/room";
 import app from "../index";
 
-
+/**
+ * Function use to create a message in chat
+ * @param req
+ * @param res
+ * @returns {*}
+ */
 export function create(req, res) {
     const {error} = schema.validate(req.body);
     if (error) {
