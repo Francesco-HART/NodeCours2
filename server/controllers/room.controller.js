@@ -40,6 +40,7 @@ export function getAllRoom(req, res){
 
 export function getRoom(req, res){
     Room.findOne({_id: req.params.id})
+        .limit(50)
         .populate('messages')
         .then((room) =>{
             res.status(200).json(room)
@@ -51,6 +52,7 @@ export function getRoom(req, res){
 
 export function getDefaultRoom(req, res){
     Room.findOne({}, [], { $orderby : { 'created_at' : -1 } })
+        .limit(50)
         .populate('messages')
         .then(room => {
             res.status(200).json(room);
