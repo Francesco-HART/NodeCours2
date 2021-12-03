@@ -109,7 +109,7 @@ export function getUser(req, res) {
       return res.status(200).json(user);
     })
     .catch((err) => {
-      return res.status(400).json("Cannot find user");
+      return res.status(404).json("Cannot find user");
     });
 }
 
@@ -132,7 +132,7 @@ export function updateUser(req, res) {
       return res.status(200).json(result);
     })
     .catch((err) => {
-      return res.status(400).json("Cannot update user");
+      return res.status(404).json("Cannot update user");
     });
 }
 
@@ -148,7 +148,7 @@ export function deleteUser(req, res) {
       return res.status(200).json(result);
     })
     .catch((err) => {
-      return res.status(400).json("Cannot delete user");
+      return res.status(404).json("Cannot delete user");
     });
 }
 
