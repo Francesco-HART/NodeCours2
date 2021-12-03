@@ -58,7 +58,7 @@ const useUpdateOneUser = () => {
   const onSubmitUpdatePassword = (data) => {
     UserService.updatePassword(data)
       .then((res) => {
-        authContext.setAuthUser(typesUser.LOGIN, res);
+        authContext.setAuthUser({ type: typesUser.LOGIN, authUser: res });
         if (authContext.authUser.isLoggedIn) {
           enqueueSnackbar("Bienvenue !", { variant: "success" });
           navigate("/");

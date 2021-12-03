@@ -110,7 +110,6 @@ export function updateUser(req, res) {
       return res.status(200).json(result);
     })
     .catch((err) => {
-      console.log(err);
       return res.status(400).json("Cannot update user");
     });
 }
@@ -126,6 +125,7 @@ export function deleteUser(req, res) {
     });
 }
 
-export function currentUser(req, res) {
-  return res.status(200).json(req.user);
+export async function currentUser(req, res) {
+  const user = await User.findById(req.user._id);
+  return res.status(200).json(user);
 }

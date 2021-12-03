@@ -45,6 +45,7 @@ const Chat = () => {
 
   // La room doit contenir les mx dernier message
   useEffect(() => {
+    blocChat.setName(blocChat.authUser.name);
     blocChat.getRooms();
     if (id) blocChat.getRoomById(id);
     else blocChat.getDefaultRoom();
@@ -111,6 +112,9 @@ const Chat = () => {
                   Valider
                 </Button>
               </ListItem>
+              <Button color="secondary" onClick={blocChat.logOut}>
+                Se Deconnecter
+              </Button>
 
               <ListItemText primary={blocChat.authLogin}></ListItemText>
             </ListItem>
@@ -189,6 +193,7 @@ const Chat = () => {
                 id="outlined-basic-email"
                 label="c'est ici qu'il faut écrire..."
                 fullWidth
+                disabled={blocChat.authUser.name ? false : true}
                 value={blocChat.message}
                 onChange={blocChat.setMessage}
               />

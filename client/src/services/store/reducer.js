@@ -36,6 +36,6 @@ export const reducer = (state, action) => {
       };
 
     default:
-      console.log(action.type, "typppppppppppe");
+      console.log(action, "Action type");
   }
 };

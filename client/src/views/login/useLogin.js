@@ -33,12 +33,14 @@ const useLogin = () => {
   const onSubmit = (data) => {
     AuthService.login(data)
       .then(async (user) => {
-        await authContext.setAuthUser(typesUser.LOGIN, user);
-        if (
-          authContext &&
-          authContext.authUser &&
-          authContext.authUser.isLoggedIn
-        ) {
+        const currentAuthUser = await AuthService.getAuthUser();
+
+        await authContext.setAuthUser({
+          type: typesUser.LOGIN,
+          authUser: currentAuthUser,
+        });
+        console.log(currentAuthUser);
+        if (currentAuthUser && currentAuthUser.isLoggedIn) {
           enqueueSnackbar("Bienvenue !", { variant: "success" });
           navigate("/");
           window.location.reload(false);

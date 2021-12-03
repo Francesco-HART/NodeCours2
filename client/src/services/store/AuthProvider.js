@@ -21,7 +21,7 @@ export function useProvideAuth() {
         const currentAuthUser = await AuthService.getAuthUser();
         if (currentAuthUser)
           setAuthUser({
-            type: typesUser.LOGIN,
+            type: "LOGIN",
             authUser: currentAuthUser,
           });
         else

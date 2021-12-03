@@ -55,7 +55,7 @@ const signIn = (req, res, next) => {
         signed: true,
         overwrite: true,
       });
-      res.status(200).send(user.email);
+      res.status(200).send(user);
     }
   })(req, res, next);
 };

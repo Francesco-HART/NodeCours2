@@ -5,6 +5,7 @@ import { AuthContext } from "../../services/store/authContext";
 import { UserService } from "../../services/api/user";
 import { typesUser } from "../../services/store/actionTypes";
 import webSocket from "../../services/socket/socket";
+import { AuthService } from "../../services/api/auth";
 
 const useChat = () => {
   const socket = webSocket();
@@ -31,11 +32,18 @@ const useChat = () => {
         setMessage("");
       })
       .catch((err) => {
-        console.log(err);
         enqueueSnackbar("Impossible d'envoyer le message", {
           variant: "error",
         });
       });
+  };
+
+  const logOut = async () => {
+    await AuthService.logout();
+    await authContext?.setAuthUser({
+      type: typesUser.LOGOUT,
+    });
+    window.location.reload(false);
   };
 
   async function getRooms() {
@@ -86,7 +94,11 @@ const useChat = () => {
     // Parce que le Auth provider plante on ne peux pas mettre à jour le authUser
     UserService.updateInfos(authContext.authUser.id, { name })
       .then(async (user) => {
-        await authContext?.setAuthUser(typesUser.UPDATE, user);
+        const authUser = await AuthService.getAuthUser();
+        await authContext?.setAuthUser({
+          type: typesUser.UPDATE,
+          authUser: authUser,
+        });
         if (
           authContext &&
           authContext.authUser &&
@@ -108,6 +120,7 @@ const useChat = () => {
     room,
     socket,
     setName,
+    logOut,
     message,
     setMessage: setMsg,
     authUser: authContext.authUser,
