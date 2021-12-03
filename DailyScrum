@@ -1,0 +1,45 @@
+Daily Scrum of the sprint
+
+Mercredi
+Taches a faire dans la journée :
+- Création d'un user
+- pouvoir se login
+- Création des messages en back
+
+Taches réalisées
+- Création d'un user
+- pouvoir se login
+- Création des messages en back
+- Création des pages home, Login et register
+
+Jeudi
+Taches a faire dans la journée :
+- Création des pages room, chat, dahsboard admin
+- Réalisation des redirections en cas de restriction
+- Installer le socket io
+- Relier le back avec le front
+
+Taches réalisées
+- Création des pages room, chat, dahsboard admin, update user
+- Réalisation des redirections en cas de restriction
+- Installer le socket io
+- Relier le back avec le front
+- Récupéré le token dans les cookies et le décrypter
+- récupérer le current user
+- update l'user
+
+Vendredi
+Taches a faire dans la journée :
+- Réalisé JsDocs
+- Réalisé Daily Scrum
+- Limiter l'affichage des messages a 50 max par room
+- Revoir le code
+- Mettre le nom et la date dans le chat (front)
+- réaliser les tests
+- mot de passe oublié (optionnel)
+- finir dashboard admin (optionnel)
+- changer le nom react app et le logo (optionnel)
+
+Taches réalisées
+- Réalisé JsDocs
+- Réalisé Daily Scrum
