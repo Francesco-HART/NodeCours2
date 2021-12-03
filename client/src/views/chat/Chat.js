@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     },
     chatSection: {
         width: "100%",
-        height: "80vh",
+        height: "85vh",
     },
     headBG: {
         backgroundColor: "#e0e0e0",
@@ -168,14 +168,19 @@ const Chat = () => {
                         {blocChat.room.messages.map((msg, index) => {
                             return (
                                 <ListItem key={index}>
-                                    <Grid container>
+                                    <Grid container justifyContent={isMyMessage(blocChat, msg)}>
                                         <Grid item xs={12}>
                                             <ListItemText
-                                                align={isMyMessage(blocChat, msg)}
+                                                align={isMyMessageSetName(blocChat, msg)}
                                                 secondary={msg._userId.name}
                                             ></ListItemText>
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        <Grid item style={{
+                                            backgroundColor: "#f1f1f1",
+                                            borderRadius: 5,
+                                            padding: 10,
+                                            margin: 10,
+                                        }}>
                                             <ListItemText
                                                 align={isMyMessage(blocChat, msg)}
                                                 primary={msg.message}
@@ -220,6 +225,20 @@ const Chat = () => {
 export default Chat;
 
 function isMyMessage(blocChat, msg) {
+    if (msg._userId && msg._userId._id){
+        return blocChat.authUser.id.toString() === msg._userId._id.toString()
+            ? "flex-end"
+            : "flex-start";
+    }
+    else{
+        return blocChat.authUser.id.toString() === msg._userId.toString()
+            ? "flex-end"
+            : "flex-start";
+    }
+
+}
+
+function isMyMessageSetName(blocChat, msg) {
     if (msg._userId && msg._userId._id){
         return blocChat.authUser.id.toString() === msg._userId._id.toString()
             ? "right"
